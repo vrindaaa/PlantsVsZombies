@@ -60,15 +60,15 @@ public class Controller {
     }
     @FXML
     void onMouseExitMiniGameButton() throws FileNotFoundException {
-        MiniGameButton.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/SelectorScreen_Survival_highlight.png")));
+        MiniGameButton.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/SelectorScreen_Survival_button.png")));
     }
     @FXML
     void onMouseEnterSurvivalButton() throws FileNotFoundException {
-        SurvivalButton.setImage(new Image(new FileInputStream("SelectorScreen_vasebreaker_highlight.png")));
+        SurvivalButton.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/SelectorScreen_vasebreaker_highlight.png")));
     }
     @FXML
     void onMouseExitSurvivalButton() throws FileNotFoundException {
-        SurvivalButton.setImage(new Image(new FileInputStream("SelectorScreen_vasebreaker_highlight.png")));
+        SurvivalButton.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/SelectorScreen_Vasebreaker_button.png")));
     }
     @FXML
     void onClickHelp() throws IOException {

@@ -1,10 +1,16 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static sample.GameClasses.Deserialize;
@@ -16,6 +22,22 @@ public class NewUserPage {
     Label ErrorLabel;
     @FXML
     TextField UsernameInputField;
+    @FXML
+    ImageView HomeImage;
+    @FXML
+    void onMouseEnterHomeButton() throws FileNotFoundException {
+        HomeImage.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/homebuttonyellow.png")));
+    }
+    @FXML
+    void onMouseExitHomeButton() throws FileNotFoundException {
+        HomeImage.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/homebuttongreen.png")));
+    }
+    @FXML
+    void onButtonClick() throws IOException {
+        Scene HomePage = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+        Main.GameStage.setScene(HomePage);
+    }
+
     @FXML
     public void onLogIn(){
         GameClasses.allUsers a = null;
@@ -39,6 +61,7 @@ public class NewUserPage {
             ErrorLabel.setText("Error: Username Not Found");
             return;
         }
+        variables.currentUser = curUser;
     }
 
 
@@ -47,20 +70,28 @@ public class NewUserPage {
         String name = UsernameInputField.getText();
         GameClasses.User u = new GameClasses.User(name,1);
         GameClasses.allUsers a = null;
+        System.out.println("Hi " + name);
         try{
             a = Deserialize();
         }catch (IOException e){
-//            curUser = u;
+            variables.currentUser = u;
             return;
         }catch (Exception e){
-            ErrorLabel.setText(e.getMessage());
+            variables.currentUser = u;
+            ErrorLabel.setText("New User Created");
+            System.out.println("sss");
+            System.out.println(e.getMessage());
             return;
         }
+        System.out.println("Deserialization successful");
         try{
+
             a.addUser(u);
         }catch (GameClasses.UserAlreadyExistsException e){
             ErrorLabel.setText("User with Username " + name + " already exists");
             return;
         }
+        variables.currentUser = u;
+        ErrorLabel.setText("New user Created");
     }
 }

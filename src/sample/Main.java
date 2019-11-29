@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         //Scene HomePage = load(getClass().getResource("HomePage.fxml"));
-        Scene HomePage = load(getClass().getResource("GamePage.fxml"));
+        Scene HomePage = load(getClass().getResource("newUserPage.fxml"));
         GameStage.setTitle("Plants Vs Zombies");
         GameStage.setScene(HomePage);
         GameStage.show();
