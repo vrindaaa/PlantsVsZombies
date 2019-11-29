@@ -13,6 +13,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+
+import javafx.stage.Stage;
 import sample.Zombies.*;
 import sample.miscellaneous.*;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +23,7 @@ import javafx.util.Duration;
 import sample.variables.*;
 import sample.plants.*;
 import static javafx.fxml.FXMLLoader.load;
-import static sample.variables.sunTokenFallTime;
+import static sample.variables.*;
 
 public class GamePageController {
     @FXML
@@ -44,6 +46,7 @@ public class GamePageController {
     ArrayList<ArrayList<Zombie>> lawn_zombies = new ArrayList<>();
     ArrayList<ArrayList<plant>> lawn_plants = new ArrayList<>();
     wallNutCard card_wallnut = null;
+    ImageView GamePausedImageView = new ImageView(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/game_paused.jpg")));
     @FXML
     Label SunTokenLabel;
     double[] row_coordinates = {0, 60, 130, 205, 280};
@@ -59,6 +62,7 @@ public class GamePageController {
     }
 
     void start_game() throws FileNotFoundException {
+        isGamePaused = false;
         currentLevel = Level.getLevel(1);
         card_wallnut = new wallNutCard(currentLevel.WallNutUnlocked, WallnutCard, true);
         setCards();
@@ -82,7 +86,7 @@ public class GamePageController {
                     }
                 });
             }
-        },10000,50000);
+        },10000,80000);
     }
     void generate_zombie() throws FileNotFoundException {
         int pos = rand.nextInt(5);
@@ -101,7 +105,7 @@ public class GamePageController {
                     }
                 });
             }
-        },0,20);
+        },0,40);
     }
     //Main Game Start
     @FXML
@@ -164,7 +168,12 @@ public class GamePageController {
     }
     @FXML
     void onClickPauseButton() throws IOException {
-        Main.GameStage.setScene(load(getClass().getResource("PauseMenu.fxml")));
+        isGamePaused = true;
+        PauseMenuStage = new Stage();
+        PauseMenuStage.setScene(load(getClass().getResource("PauseMenu.fxml")));
+        PauseMenuStage.show();
+        //GamepagePane.getChildren().add(GamePausedImageView);
+        //Main.GameStage.setScene(load(getClass().getResource("PauseMenu.fxml")));
     }
     @FXML
     private void imageviewdragdropped(DragEvent event) throws FileNotFoundException {
@@ -213,7 +222,6 @@ public class GamePageController {
             lockWallnut.setOpacity(1);
         }
     }
-
     class generate_sun implements Runnable{
         @Override
         public void run(){
@@ -245,17 +253,6 @@ public class GamePageController {
                 }
             }
         }
-
-        public void Pause() {
-            this.paused = true;
-        }
-
-        public void  Resume(){
-            synchronized (t){
-                paused = false;
-                t.notifyAll();
-            }
-        }
     }
     class progress_2 implements Runnable{
         @Override
@@ -273,30 +270,12 @@ public class GamePageController {
         @Override
         public void run(){
             while(true){
-                if(paused){
-                    try{
-                        synchronized (t2){
-                            t2.wait();
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
                 Platform.runLater(ok2);
                 try {
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
-        }
-        public void Pause() {
-            this.paused = true;
-        }
-        public void  Resume(){
-            synchronized (t2){
-                paused = false;
-                t2.notifyAll();
             }
         }
     }

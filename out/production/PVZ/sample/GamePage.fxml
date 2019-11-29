@@ -138,6 +138,16 @@
                   <Image url="@Graphics/lock.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="lockReoeater" fitHeight="42.0" fitWidth="40.0" layoutX="39.0" layoutY="293.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/lock.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="lockChilli" fitHeight="37.0" fitWidth="47.0" layoutX="41.0" layoutY="356.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/lock.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </root>

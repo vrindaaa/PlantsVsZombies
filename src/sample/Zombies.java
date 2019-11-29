@@ -73,7 +73,7 @@ public class Zombies {
                     return;
                 }
             }
-            this.setX(this.getX()-0.2);
+            this.setX(this.getX()-0.7);
             if(this.getX()<100){
                 this.setX(100);
             }

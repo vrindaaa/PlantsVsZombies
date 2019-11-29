@@ -1,23 +1,17 @@
 package sample;
-import javafx.animation.TranslateTransition;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.util.Duration;
-import sample.GamePageController.*;
 
 import javafx.application.Platform;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Callable;
-
-import static sample.variables.sunTokenFallTime;
 
 public class plants {
     static abstract class plantCard{
@@ -238,7 +232,7 @@ public class plants {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            pea.setX(pea.getX()+0.2);
+                            pea.setX(pea.getX()+5);
                             for(int i=0; i<list_zombies.get(row).size(); i++){
                                 if(pea.getX()<list_zombies.get(row).get(i).getX()+5 && pea.getX()>list_zombies.get(row).get(i).getX()-5){
                                     //Hit Zombie
@@ -254,7 +248,7 @@ public class plants {
                         }
                     });
                 }
-            },0,1);
+            },0,40);
 
         }
     }
