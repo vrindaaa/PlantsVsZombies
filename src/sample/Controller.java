@@ -77,6 +77,11 @@ public class Controller {
         Main.GameStage.setScene(HomePage);
     }
     @FXML
+    void onClickNewUser() throws IOException {
+        Scene HomePage = FXMLLoader.load(getClass().getResource("newUserPage.fxml"));
+        Main.GameStage.setScene(HomePage);
+    }
+    @FXML
     void quit(){
         Main.GameStage.close();
     }

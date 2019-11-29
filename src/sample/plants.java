@@ -236,6 +236,7 @@ public class plants {
 //
 //    static class Walnut extends plant{
 //        Walnut(){
+//            currentImageView = new I
 //        }
 //    }
 

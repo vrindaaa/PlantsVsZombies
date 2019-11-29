@@ -42,4 +42,8 @@ public class ChooseLevelController {
         Scene HomePage = FXMLLoader.load(getClass().getResource("GamePage.fxml"));
         Main.GameStage.setScene(HomePage);
     }
+    @FXML
+    void OnClickGoBack() throws IOException {
+        Main.GameStage.setScene(FXMLLoader.load(getClass().getResource("ChooseLevel2.fxml")));
+    }
 }

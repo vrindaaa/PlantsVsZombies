@@ -17,6 +17,7 @@ public class PauseMenu {
     Button ResumeGameButton, RestartLevelButton, SaveAndExitButton;
     @FXML
     void onClickResume() throws IOException {
+        //variables.toStart = true;
         variables.isGamePaused = false;
         variables.PauseMenuStage.close();
         //Main.GameStage.setScene(load(getClass().getResource("GamePage.fxml")));
@@ -24,6 +25,8 @@ public class PauseMenu {
     @FXML
     void onClickRestart() throws IOException {
         variables.isGamePaused = false;
+        curGame = variables.Factory_New_Game.getNewGame();
+        variables.toStart = true;
         Main.GameStage.setScene(load(getClass().getResource("GamePage.fxml")));
         variables.PauseMenuStage.close();
     }

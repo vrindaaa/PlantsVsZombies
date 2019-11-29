@@ -9,7 +9,7 @@
 
 <Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SaveGamePage">
    <root>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+      <AnchorPane fx:id="SavedGamePagePane" onMouseEntered="#onMouseEnter" prefHeight="400.0" prefWidth="600.0">
          <children>
             <ImageView fitHeight="433.0" fitWidth="675.0" layoutX="-14.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -31,17 +31,17 @@
                   <Image url="@Graphics/NormalButton.png" />
                </image>
             </ImageView>
-            <Label fx:id="SavedGameSlot1" alignment="CENTER" layoutX="132.0" layoutY="83.0" prefHeight="70.0" prefWidth="382.0" text="No Saved Games Yet">
+            <Label fx:id="SavedGameSlot1" alignment="CENTER" layoutX="132.0" layoutY="83.0" onMouseClicked="#OnClickLabel1" prefHeight="70.0" prefWidth="382.0" text="No Saved Games Yet">
                <font>
                   <Font name="ZombieA" size="32.0" />
                </font>
             </Label>
-            <Label fx:id="SavedGameSlot2" alignment="CENTER" layoutX="132.0" layoutY="158.0" prefHeight="70.0" prefWidth="382.0" text="No Saved Games Yet">
+            <Label fx:id="SavedGameSlot2" alignment="CENTER" layoutX="132.0" layoutY="158.0" onMouseClicked="#OnClickLabel2" prefHeight="70.0" prefWidth="382.0" text="No Saved Games Yet">
                <font>
                   <Font name="ZombieA" size="32.0" />
                </font>
             </Label>
-            <Label fx:id="SavedGameSlot3" alignment="CENTER" layoutX="132.0" layoutY="241.0" prefHeight="70.0" prefWidth="382.0" text="No Saved Games Yet">
+            <Label fx:id="SavedGameSlot3" alignment="CENTER" layoutX="132.0" layoutY="241.0" onMouseClicked="#OnClickLabel3" prefHeight="70.0" prefWidth="382.0" text="No Saved Games Yet">
                <font>
                   <Font name="ZombieA" size="32.0" />
                </font>

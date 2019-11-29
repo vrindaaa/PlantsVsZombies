@@ -111,6 +111,11 @@
                   <Font name="ZombieA" size="30.0" />
                </font>
             </Label>
+            <ImageView fx:id="GoForward" fitHeight="84.0" fitWidth="84.0" layoutX="622.0" layoutY="19.0" onMouseClicked="#OnClickGoBack" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/red-right-arrow-12.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </root>

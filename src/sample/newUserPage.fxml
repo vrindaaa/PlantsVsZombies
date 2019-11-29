@@ -34,11 +34,6 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ImageView fx:id="HomeImage" fitHeight="95.0" fitWidth="120.0" layoutX="463.0" layoutY="275.0" onMouseClicked="#onButtonClick" onMouseEntered="#onMouseEnterHomeButton" onMouseExited="#onMouseExitHomeButton" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Graphics/homebuttongreen.png" />
-               </image>
-            </ImageView>
          </children>
       </AnchorPane>
    </root>

@@ -8,6 +8,8 @@ import java.io.IOException;
 public class NewGameMenu {
     @FXML
     void onNewGameClick() throws IOException {
+        variables.toStart = true;
+        variables.curGame = variables.Factory_New_Game.getNewGame();
         Main.GameStage.setScene(FXMLLoader.load(getClass().getResource("ChooseLevel.fxml")));
     }
     @FXML

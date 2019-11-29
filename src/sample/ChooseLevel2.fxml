@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ChooseLevelController">
+<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ChooseLevelController2">
    <root>
       <AnchorPane prefHeight="413.0" prefWidth="685.0">
          <children>
@@ -31,16 +31,6 @@
                   <Image url="@Graphics/AlmanacIndex.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="HomeImage" fitHeight="150.0" fitWidth="200.0" layoutX="537.0" layoutY="366.0" onMouseClicked="#onButtonClick" onMouseEntered="#onMouseEnterHomeButton" onMouseExited="#onMouseExitHomeButton" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Graphics/homebuttongreen.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="ChooseLevelLabel" layoutX="174.0" layoutY="24.0" onMousePressed="#onButtonClick" text="CHOOSE LEVEL" textFill="#c71c1c">
-               <font>
-                  <Font name="ZombieA" size="67.0" />
-               </font>
-            </Label>
             <ImageView fx:id="levelbg1" fitHeight="80.0" fitWidth="200.0" layoutX="43.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Graphics/Game_Background.jpg" />
@@ -66,17 +56,17 @@
                   <Image url="@Graphics/lock.png" />
                </image>
             </ImageView>
-            <Label layoutX="72.0" layoutY="323.0" text="Level 1" textFill="WHITE">
+            <Label layoutX="72.0" layoutY="323.0" text="Level 4" textFill="WHITE">
                <font>
                   <Font name="ZombieA" size="39.0" />
                </font>
             </Label>
-            <Label layoutX="316.0" layoutY="323.0" text="Level 2" textFill="WHITE">
+            <Label layoutX="316.0" layoutY="323.0" text="Level 5" textFill="WHITE">
                <font>
                   <Font name="ZombieA" size="39.0" />
                </font>
             </Label>
-            <Label layoutX="565.0" layoutY="323.0" text="Level 3" textFill="WHITE">
+            <Label layoutX="565.0" layoutY="323.0" text="Level 6" textFill="WHITE">
                <font>
                   <Font name="ZombieA" size="39.0" />
                </font>
@@ -96,7 +86,7 @@
                   <Image url="@Graphics/NormalButton.png" />
                </image>
             </ImageView>
-            <Label fx:id="Level1Label" alignment="CENTER" layoutX="73.0" layoutY="258.0" onMouseClicked="#PlayGameButtonClicked" onMouseEntered="#onMouseEnterLabel" onMouseExited="#onMouseExitLabel" prefHeight="43.0" prefWidth="128.0" text="Play">
+            <Label fx:id="Level1Label" alignment="CENTER" layoutX="73.0" layoutY="258.0" prefHeight="43.0" prefWidth="128.0" text="Play">
                <font>
                   <Font name="ZombieA" size="30.0" />
                </font>
@@ -111,7 +101,17 @@
                   <Font name="ZombieA" size="30.0" />
                </font>
             </Label>
-            <ImageView fx:id="GoForward" fitHeight="84.0" fitWidth="84.0" layoutX="622.0" layoutY="19.0" onMouseClicked="#OnClickGoBack" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="Lock11" fitHeight="64.0" fitWidth="69.0" layoutX="104.0" layoutY="179.0" opacity="0.69" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/lock.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="ChooseLevelLabel" layoutX="174.0" layoutY="24.0" text="CHOOSE LEVEL" textFill="#c71c1c">
+               <font>
+                  <Font name="ZombieA" size="67.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="GoBackArrow" fitHeight="90.0" fitWidth="76.0" layoutX="66.0" layoutY="22.0" onMouseClicked="#OnClickGoBack" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                <image>
                   <Image url="@Graphics/red-right-arrow-12.png" />
                </image>

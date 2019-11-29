@@ -39,15 +39,12 @@ public class NewUserPage {
     }
 
     @FXML
-    public void onLogIn(){
+    public void onLogIn() throws IOException {
         GameClasses.allUsers a = null;
         try {
             a = Deserialize();
-        }catch (IOException e){
-            ErrorLabel.setText("Error: No saved Users");
-            return;
         }catch (Exception e){
-            ErrorLabel.setText(e.getMessage());
+            ErrorLabel.setText("Error: No Saved Users");
             return;
         }
         GameClasses.User curUser = null;
@@ -62,30 +59,30 @@ public class NewUserPage {
             return;
         }
         variables.currentUser = curUser;
+        Scene HomePage = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+        Main.GameStage.setScene(HomePage);
     }
 
 
     @FXML
-    public void onNewUser(){
+    public void onNewUser() throws IOException {
         String name = UsernameInputField.getText();
         GameClasses.User u = new GameClasses.User(name,1);
         GameClasses.allUsers a = null;
         System.out.println("Hi " + name);
         try{
             a = Deserialize();
-        }catch (IOException e){
-            variables.currentUser = u;
-            return;
         }catch (Exception e){
             variables.currentUser = u;
             ErrorLabel.setText("New User Created");
             System.out.println("sss");
-            System.out.println(e.getMessage());
+            Scene HomePage = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+            Main.GameStage.setScene(HomePage);
+            //System.out.println(e.getMessage());
             return;
         }
         System.out.println("Deserialization successful");
         try{
-
             a.addUser(u);
         }catch (GameClasses.UserAlreadyExistsException e){
             ErrorLabel.setText("User with Username " + name + " already exists");
@@ -93,5 +90,7 @@ public class NewUserPage {
         }
         variables.currentUser = u;
         ErrorLabel.setText("New user Created");
+        Scene HomePage = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+        Main.GameStage.setScene(HomePage);
     }
 }

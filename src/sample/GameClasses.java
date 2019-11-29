@@ -1,6 +1,8 @@
 package sample;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -40,12 +42,16 @@ public class GameClasses {
         String sunTokenString;
         ArrayList<ArrayList<Zombies.Zombie>> listOflistOfZombies;
         ArrayList<ArrayList<plants.plant>> listOflistOfPlants;
+        String id;
 
         public Game(int levelsUnlocked, ArrayList<ArrayList<Zombies.Zombie>> listOflistOfZombies, ArrayList<ArrayList<plants.plant>> listOflistOfPlants, String SunTokenString) {
             this.levelsUnlocked = levelsUnlocked;
             this.listOflistOfZombies = listOflistOfZombies;
             this.listOflistOfPlants = listOflistOfPlants;
             this.sunTokenString = SunTokenString;
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+            LocalDateTime now = LocalDateTime.now();
+            id = dtf.format(now);
         }
 
         public ArrayList<ArrayList<Zombies.Zombie>> getListOflistOfZombies() {

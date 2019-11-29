@@ -35,7 +35,7 @@
                <Font size="17.0" />
             </font>
          </Label>
-         <ImageView fx:id="NewUserButton" accessibleRole="BUTTON" fitHeight="94.0" fitWidth="388.0" layoutX="33.0" layoutY="164.0" onMouseEntered="#onMouseEnterNewUserButton" onMouseExited="#onMouseExitNewUserButton" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="NewUserButton" accessibleRole="BUTTON" fitHeight="94.0" fitWidth="388.0" layoutX="33.0" layoutY="164.0" onMouseClicked="#onClickNewUser" onMouseEntered="#onMouseEnterNewUserButton" onMouseExited="#onMouseExitNewUserButton" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@Graphics/SelectorScreen_WoodSign2.png" />
             </image>

@@ -62,6 +62,11 @@ public class GamePageController {
     }
 
     void start_game() throws FileNotFoundException {
+        toStart = false;
+        System.out.println("Game Started Again");
+        for(int i=0; i<45; i++){
+            getLawn().get(i).setImage(null);
+        }
         //isGamePaused = false;
         currentLevel = Level.getLevel(1);
         card_wallnut = new wallNutCard(currentLevel.WallNutUnlocked, WallnutCard, true);
@@ -71,11 +76,6 @@ public class GamePageController {
         SunTokenLabel.setText(curGame.sunTokenString);
         add_plants();
         add_zombies();
-//        for(int i=0; i<5; i++){
-//            lawn_zombies.add(new ArrayList<Zombie>());
-//            lawn_plants.add(new ArrayList<plant>());
-//        }
-        //Generating Zombies
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -104,7 +104,7 @@ public class GamePageController {
                 try{
                 GamepagePane.getChildren().add(temp);}
                 catch(Exception e){
-                    System.out.println("oops");
+                    //System.out.println("oops");
                 }
             }
         }
@@ -145,9 +145,11 @@ public class GamePageController {
     //Main Game Start
     @FXML
     private void start_sun() throws FileNotFoundException {
+        if(toStart){
+            start_game();
+        }
         if(!t.isAlive()){
             t.start();
-            start_game();
         }
         if(!t2.isAlive()){
             t2.start();
@@ -267,14 +269,14 @@ public class GamePageController {
                         lawn_plants.get(row).add(cur_plant);
                         lawn.get(i).setImage(myPlant);
                         SunFlower.isAvailable = false;
-                        System.out.println("here");
+                        //System.out.println("here");
                         Timer timer = new Timer();
                         long temp = cur_plant.loadTime;
                         timer.schedule(new TimerTask() {
                             @Override
                             public void run() {
                                 SunFlower.isAvailable = true;
-                                System.out.println("here2");
+                                //System.out.println("here2");
                             }
                         }, temp * 1000);
                     }
