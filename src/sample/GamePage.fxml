@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GamePageController">
+   <root>
+      <AnchorPane fx:id="GamepagePane" onMouseEntered="#start_sun" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ImageView fx:id="GameBackgroundImage" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/Game_Background.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="PlantCardPlaceHolder" fitHeight="102.0" fitWidth="460.0" layoutX="-171.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+               <image>
+                  <Image url="@Graphics/PlantCardPlaceHolder.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="SunTokenImage" fitHeight="100.0" fitWidth="82.0" layoutX="18.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/SunTokenDisplay.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="SunTokenLabel" alignment="CENTER" layoutX="32.0" layoutY="67.0" prefHeight="31.0" prefWidth="55.0" text="50">
+               <font>
+                  <Font name="FreeMono Bold" size="25.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="SunCard" fitHeight="55.0" fitWidth="97.0" layoutX="12.0" layoutY="103.0" onDragDetected="#HandleDragSunflowerCard" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/sunflowerCard.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="PeaShooterCard" fitHeight="56.0" fitWidth="97.0" layoutX="12.0" layoutY="164.0" onDragDetected="#HandleDragPeaShooterCard" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/peashooterCard.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="LawnMower_a" fitHeight="48.0" fitWidth="56.0" layoutX="130.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/lawn_mower.gif" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="LawnMower_b" fitHeight="49.0" fitWidth="63.0" layoutX="126.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/lawn_mower.gif" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="LawnMower_c" fitHeight="58.0" fitWidth="61.0" layoutX="120.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/lawn_mower.gif" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="LawnMower_d" fitHeight="65.0" fitWidth="71.0" layoutX="108.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/lawn_mower.gif" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="LawnMower_e" fitHeight="72.0" fitWidth="67.0" layoutX="104.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/lawn_mower.gif" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="a1" fitHeight="70.0" fitWidth="61.0" layoutX="183.0" layoutY="57.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="a2" fitHeight="70.0" fitWidth="61.0" layoutX="244.0" layoutY="57.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="a3" fitHeight="70.0" fitWidth="59.0" layoutX="305.0" layoutY="60.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="a4" fitHeight="70.0" fitWidth="61.0" layoutX="364.0" layoutY="57.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="a5" fitHeight="70.0" fitWidth="61.0" layoutX="425.0" layoutY="56.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="a6" fitHeight="70.0" fitWidth="61.0" layoutX="482.0" layoutY="50.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="a7" fitHeight="70.0" fitWidth="58.0" layoutX="543.0" layoutY="60.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="a8" fitHeight="83.0" fitWidth="55.0" layoutX="601.0" layoutY="52.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="a9" fitHeight="70.0" fitWidth="61.0" layoutX="656.0" layoutY="65.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="b1" fitHeight="70.0" fitWidth="61.0" layoutX="183.0" layoutY="127.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="b2" fitHeight="70.0" fitWidth="61.0" layoutX="244.0" layoutY="127.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="b3" fitHeight="70.0" fitWidth="59.0" layoutX="305.0" layoutY="130.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="b4" fitHeight="70.0" fitWidth="61.0" layoutX="364.0" layoutY="127.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="b5" fitHeight="70.0" fitWidth="61.0" layoutX="425.0" layoutY="126.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="b6" fitHeight="70.0" fitWidth="61.0" layoutX="482.0" layoutY="120.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="b7" fitHeight="70.0" fitWidth="58.0" layoutX="543.0" layoutY="130.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="b8" fitHeight="83.0" fitWidth="55.0" layoutX="601.0" layoutY="122.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="b9" fitHeight="70.0" fitWidth="61.0" layoutX="656.0" layoutY="135.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="c1" fitHeight="70.0" fitWidth="61.0" layoutX="183.0" layoutY="203.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="c2" fitHeight="70.0" fitWidth="61.0" layoutX="244.0" layoutY="203.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="c3" fitHeight="70.0" fitWidth="59.0" layoutX="305.0" layoutY="206.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="c4" fitHeight="70.0" fitWidth="61.0" layoutX="364.0" layoutY="203.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="c5" fitHeight="70.0" fitWidth="61.0" layoutX="425.0" layoutY="202.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="c6" fitHeight="70.0" fitWidth="61.0" layoutX="482.0" layoutY="196.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="c7" fitHeight="70.0" fitWidth="58.0" layoutX="543.0" layoutY="206.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="c8" fitHeight="83.0" fitWidth="55.0" layoutX="601.0" layoutY="198.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="c9" fitHeight="70.0" fitWidth="61.0" layoutX="656.0" layoutY="211.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="d1" fitHeight="70.0" fitWidth="61.0" layoutX="183.0" layoutY="275.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="d2" fitHeight="70.0" fitWidth="61.0" layoutX="244.0" layoutY="275.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="d3" fitHeight="70.0" fitWidth="59.0" layoutX="305.0" layoutY="278.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="d4" fitHeight="70.0" fitWidth="61.0" layoutX="364.0" layoutY="275.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="d5" fitHeight="70.0" fitWidth="61.0" layoutX="425.0" layoutY="274.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="d6" fitHeight="70.0" fitWidth="61.0" layoutX="482.0" layoutY="268.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="d7" fitHeight="70.0" fitWidth="58.0" layoutX="543.0" layoutY="278.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="d8" fitHeight="83.0" fitWidth="55.0" layoutX="601.0" layoutY="270.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="d9" fitHeight="70.0" fitWidth="61.0" layoutX="656.0" layoutY="283.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="e1" fitHeight="70.0" fitWidth="61.0" layoutX="183.0" layoutY="346.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="e2" fitHeight="70.0" fitWidth="61.0" layoutX="244.0" layoutY="346.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="e3" fitHeight="70.0" fitWidth="59.0" layoutX="305.0" layoutY="349.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="e4" fitHeight="70.0" fitWidth="61.0" layoutX="364.0" layoutY="346.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="e5" fitHeight="70.0" fitWidth="61.0" layoutX="425.0" layoutY="345.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="e6" fitHeight="70.0" fitWidth="61.0" layoutX="482.0" layoutY="339.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="e7" fitHeight="70.0" fitWidth="58.0" layoutX="543.0" layoutY="349.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="e8" fitHeight="83.0" fitWidth="55.0" layoutX="601.0" layoutY="341.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="e9" fitHeight="81.0" fitWidth="71.0" layoutX="656.0" layoutY="339.0" onDragDropped="#imageviewdragdropped" onDragOver="#onDragOver" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="41.0" fitWidth="69.0" layoutX="941.0" layoutY="14.0" onMouseClicked="#onClickPauseButton" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/pausebutton.png" />
+               </image>
+            </ImageView>
+            <ProgressBar fx:id="progressBar" layoutX="629.0" layoutY="15.0" prefHeight="38.0" prefWidth="302.0" progress="0.0" rotate="180.0" />
+            <ImageView fx:id="WallnutCard" fitHeight="67.0" fitWidth="94.0" layoutX="13.0" layoutY="220.0" onDragDetected="#HandleDragWallnutCard" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/tallnutCard.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="SunCard1" fitHeight="55.0" fitWidth="101.0" layoutX="12.0" layoutY="282.0" onDragDetected="#HandleDragSunflowerCard" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/repeaterCard.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="SunCard11" fitHeight="53.0" fitWidth="96.0" layoutX="12.0" layoutY="338.0" onDragDetected="#HandleDragSunflowerCard" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/chillyCard.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </root>
+</Scene>

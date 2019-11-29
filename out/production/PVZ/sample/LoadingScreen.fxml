@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoadingScreenController">
+   <root>
+      <AnchorPane fx:id="loadingPane">
+         <children>
+            <ImageView fitHeight="417.0" fitWidth="1164.0" layoutX="1.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/LoadingScreen.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="174.0" layoutY="306.0" prefHeight="50.0" prefWidth="591.0" text="LOADING PLEASE WAIT..." textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="ZombieA" size="46.0" />
+               </font>
+            </Label>
+            <ProgressBar fx:id="loadingProgress" layoutX="218.0" layoutY="366.0" prefHeight="18.0" prefWidth="504.0" progress="0.0" />
+         </children></AnchorPane>
+   </root>
+</Scene>

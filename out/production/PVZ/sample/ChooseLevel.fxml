@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ChooseLevelController">
+   <root>
+      <AnchorPane prefHeight="413.0" prefWidth="685.0">
+         <children>
+            <ImageView fx:id="Background" fitHeight="519.0" fitWidth="783.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/BlackBackground.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="Level1" fitHeight="160.0" fitWidth="217.0" layoutX="28.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/AlmanacIndex.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="Level2" fitHeight="160.0" fitWidth="217.0" layoutX="272.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/AlmanacIndex.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="Level3" fitHeight="160.0" fitWidth="217.0" layoutX="520.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/AlmanacIndex.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="HomeImage" fitHeight="150.0" fitWidth="200.0" layoutX="537.0" layoutY="366.0" onMouseClicked="#onButtonClick" onMouseEntered="#onMouseEnterHomeButton" onMouseExited="#onMouseExitHomeButton" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/homebuttongreen.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="ChooseLevelLabel" layoutX="174.0" layoutY="24.0" onMousePressed="#onButtonClick" text="CHOOSE LEVEL" textFill="#c71c1c">
+               <font>
+                  <Font name="ZombieA" size="67.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="levelbg1" fitHeight="80.0" fitWidth="200.0" layoutX="43.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/Game_Background.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="levelbg2" fitHeight="80.0" fitWidth="200.0" layoutX="287.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/Game_Background.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="levelbg3" fitHeight="80.0" fitWidth="200.0" layoutX="536.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/Game_Background.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="Lock1" fitHeight="64.0" fitWidth="69.0" layoutX="348.0" layoutY="179.0" opacity="0.69" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/lock.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="Lock2" fitHeight="64.0" fitWidth="69.0" layoutX="589.0" layoutY="179.0" opacity="0.69" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/lock.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="72.0" layoutY="323.0" text="Level 1" textFill="WHITE">
+               <font>
+                  <Font name="ZombieA" size="39.0" />
+               </font>
+            </Label>
+            <Label layoutX="316.0" layoutY="323.0" text="Level 2" textFill="WHITE">
+               <font>
+                  <Font name="ZombieA" size="39.0" />
+               </font>
+            </Label>
+            <Label layoutX="565.0" layoutY="323.0" text="Level 3" textFill="WHITE">
+               <font>
+                  <Font name="ZombieA" size="39.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="Level1ButtonImage" fitHeight="93.0" fitWidth="148.0" layoutX="63.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/NormalButton.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="93.0" fitWidth="148.0" layoutX="308.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/NormalButton.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="93.0" fitWidth="148.0" layoutX="555.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/NormalButton.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="Level1Label" alignment="CENTER" layoutX="73.0" layoutY="258.0" onMouseClicked="#PlayGameButtonClicked" onMouseEntered="#onMouseEnterLabel" onMouseExited="#onMouseExitLabel" prefHeight="43.0" prefWidth="128.0" text="Play">
+               <font>
+                  <Font name="ZombieA" size="30.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="318.0" layoutY="258.0" prefHeight="43.0" prefWidth="128.0" text="Play">
+               <font>
+                  <Font name="ZombieA" size="30.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="565.0" layoutY="258.0" prefHeight="43.0" prefWidth="128.0" text="Play">
+               <font>
+                  <Font name="ZombieA" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </root>
+</Scene>

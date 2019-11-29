@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+
+<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <AnchorPane fx:id="HomePageAnchorPane" onMouseEntered="#OnMouseEnter" prefHeight="788.0" prefWidth="1041.0">
+      <children>
+         <ImageView fx:id="BackgroundImage" fitHeight="788.0" fitWidth="1051.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@Graphics/bg4.jpg" />
+            </image>
+         </ImageView>
+         <ImageView id="AdventureButton" fx:id="AdventureButton" accessibleRole="BUTTON" fitHeight="167.0" fitWidth="433.0" layoutX="532.0" layoutY="104.0" onMouseClicked="#PlayGameButtonClicked" onMouseEntered="#onMouseEnterAdventureButton" onMouseExited="#onMouseExitAdventureButton" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@Graphics/SelectorScreen_Adventure_button.png" />
+            </image></ImageView>
+         <ImageView fx:id="WoodenSign" fitHeight="200.0" fitWidth="384.0" layoutX="28.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@Graphics/SelectorScreen_WoodSign1.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="UsernameLabel" alignment="CENTER" layoutX="74.0" layoutY="111.0" prefHeight="30.0" prefWidth="308.0" text="Anonymous" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="FreeMono Bold" size="24.0" />
+            </font>
+         </Label>
+         <Label fx:id="LevelDisplayLabel" alignment="CENTER" layoutX="760.0" layoutY="225.0" prefHeight="20.0" prefWidth="17.0" text="0" textFill="WHITE">
+            <font>
+               <Font size="17.0" />
+            </font>
+         </Label>
+         <ImageView fx:id="NewUserButton" accessibleRole="BUTTON" fitHeight="94.0" fitWidth="388.0" layoutX="33.0" layoutY="164.0" onMouseEntered="#onMouseEnterNewUserButton" onMouseExited="#onMouseExitNewUserButton" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@Graphics/SelectorScreen_WoodSign2.png" />
+            </image>
+         </ImageView>
+         <Region fx:id="AlmanacRegion" layoutX="436.0" layoutY="565.0" prefHeight="117.0" prefWidth="118.0" />
+         <Region fx:id="OptionsRegion" layoutX="730.0" layoutY="577.0" prefHeight="118.0" prefWidth="117.0" />
+         <Region fx:id="HelpRegion" layoutX="846.0" layoutY="563.0" onMouseClicked="#onClickHelp" prefHeight="166.0" prefWidth="73.0" />
+         <Region fx:id="QuitRegion" layoutX="931.0" layoutY="590.0" onMouseClicked="#quit" prefHeight="126.0" prefWidth="96.0" />
+         <ImageView fx:id="MiniGameButton" fitHeight="205.0" fitWidth="413.0" layoutX="532.0" layoutY="225.0" onMouseClicked="#UnderConstructionButtonClicked" onMouseEntered="#onMouseEnterMiniGameButton" onMouseExited="#onMouseExitMiniGameButton" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@Graphics/SelectorScreen_Survival_button.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="SurvivalButton" fitHeight="164.0" fitWidth="355.0" layoutX="537.0" layoutY="426.0" onMouseClicked="#UnderConstructionButtonClicked" onMouseEntered="#onMouseEnterSurvivalButton" onMouseExited="#onMouseExitSurvivalButton" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@Graphics/SelectorScreen_Vasebreaker_button.png" />
+            </image>
+         </ImageView>
+      </children></AnchorPane>
+</Scene>

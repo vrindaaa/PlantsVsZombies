@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PauseMenu">
+   <root>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="623.0" fitWidth="884.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/BlackBackground.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="542.0" fitWidth="883.0" layoutX="-11.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/PauseMenu.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="ResumeGameButton" layoutX="270.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#onClickResume" opacity="0.0" prefHeight="31.0" prefWidth="158.0" text="Button" />
+            <Button fx:id="RestartLevelButton" layoutX="442.0" layoutY="367.0" mnemonicParsing="false" onMouseClicked="#onClickResume" opacity="0.0" prefHeight="31.0" prefWidth="158.0" text="Button" />
+            <Button fx:id="SaveAndExitButton" layoutX="349.0" layoutY="422.0" mnemonicParsing="false" onMouseClicked="#onClickExit" opacity="0.0" prefHeight="31.0" prefWidth="166.0" text="Button" />
+         </children>
+      </AnchorPane>
+   </root>
+</Scene>

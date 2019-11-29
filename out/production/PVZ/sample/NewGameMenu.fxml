@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.NewGameMenu">
+   <root>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="415.0" fitWidth="814.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/menubg.png" />
+               </image>
+            </ImageView>
+            <Button alignment="CENTER" layoutX="125.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#onNewGameClick" opacity="0.8" prefHeight="74.0" prefWidth="350.0" text="NEW GAME" textAlignment="CENTER" textFill="#8c2929">
+               <font>
+                  <Font name="ZombieA" size="42.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" layoutX="234.0" layoutY="159.0" mnemonicParsing="false" onMouseClicked="#onLoadGameClick" opacity="0.8" prefHeight="54.0" prefWidth="259.0" text="Load GAME" textAlignment="CENTER" textFill="#8c2929">
+               <font>
+                  <Font name="ZombieA" size="32.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" layoutX="314.0" layoutY="230.0" mnemonicParsing="false" onMouseClicked="#onLeaderBoardClick" opacity="0.8" prefHeight="57.0" prefWidth="206.0" text="Leaderboard" textAlignment="CENTER" textFill="#8c2929">
+               <font>
+                  <Font name="ZombieA" size="25.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" layoutX="352.0" layoutY="297.0" mnemonicParsing="false" onMouseClicked="#onHomeGameClick" opacity="0.8" prefHeight="54.0" prefWidth="168.0" text="Home Page" textAlignment="CENTER" textFill="#8c2929">
+               <font>
+                  <Font name="ZombieA" size="25.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </root>
+</Scene>
