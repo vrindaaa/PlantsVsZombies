@@ -3,6 +3,7 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -21,6 +22,8 @@ public class Controller {
     boolean isdone = false;
     @FXML
     AnchorPane HomePageAnchorPane;
+    @FXML
+    Label UsernameLabel,LevelDisplayLabel;
     @FXML
     ImageView AdventureButton;
     @FXML
@@ -79,6 +82,10 @@ public class Controller {
     }
     @FXML
     void OnMouseEnter(){
+        if(variables.currentUser != null){
+            LevelDisplayLabel.setText(Integer.toString(variables.currentUser.getLevel()));
+            UsernameLabel.setText(variables.currentUser.getName());
+        }
         if(!isdone){
         Media sound = new Media(new File("out/production/PVZ/sample/Graphics/menu.wav").toURI().toString());
         //Media sound = new Media("C:\\Users\\Shiv\\Desktop\\PlantsVsZombies-master\\PVZ\\menu.wav");

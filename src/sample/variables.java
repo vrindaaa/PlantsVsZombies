@@ -9,4 +9,5 @@ public class variables {
     static int sunTokenFallTime = 20000; //ms
     static boolean isGamePaused = false;
     static Stage PauseMenuStage;
+    static GameClasses.User currentUser = null;
 }
