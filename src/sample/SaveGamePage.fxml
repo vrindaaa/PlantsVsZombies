@@ -31,17 +31,17 @@
                   <Image url="@Graphics/NormalButton.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" layoutX="132.0" layoutY="83.0" prefHeight="70.0" prefWidth="382.0" text="No Saved Games Yet">
+            <Label fx:id="SavedGameSlot1" alignment="CENTER" layoutX="132.0" layoutY="83.0" prefHeight="70.0" prefWidth="382.0" text="No Saved Games Yet">
                <font>
                   <Font name="ZombieA" size="32.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="132.0" layoutY="158.0" prefHeight="70.0" prefWidth="382.0" text="No Saved Games Yet">
+            <Label fx:id="SavedGameSlot2" alignment="CENTER" layoutX="132.0" layoutY="158.0" prefHeight="70.0" prefWidth="382.0" text="No Saved Games Yet">
                <font>
                   <Font name="ZombieA" size="32.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="132.0" layoutY="241.0" prefHeight="70.0" prefWidth="382.0" text="No Saved Games Yet">
+            <Label fx:id="SavedGameSlot3" alignment="CENTER" layoutX="132.0" layoutY="241.0" prefHeight="70.0" prefWidth="382.0" text="No Saved Games Yet">
                <font>
                   <Font name="ZombieA" size="32.0" />
                </font>

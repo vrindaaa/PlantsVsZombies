@@ -20,7 +20,6 @@ public class plants {
         protected ImageView cardImageView;
         protected int cost;
         public boolean isUnlocked;
-        public boolean isLoaded;
         public String getName() {
             return name;
         }
@@ -89,15 +88,22 @@ public class plants {
     static abstract class plant extends character{
         protected double health;
         protected double attackPower;
-        public ImageView currentImageView;
-        public int row;
+        public transient ImageView currentImageView;
+        public int row = 0;
+        public int col = 0;
+        public String image_path;
         public boolean isAlive = true;
+        public transient static int loadTime;
+        public transient static boolean isAvailable = true;
         public boolean get_eaten(AnchorPane GamePagePane, double AttackZombie){
             health-=AttackZombie;
             if(health<=0){
                 return true;
             }
             return false;
+        }
+
+        public void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies) throws FileNotFoundException {
         }
 
         public ImageView getCurrentImageView() {
@@ -119,14 +125,22 @@ public class plants {
 
     static class SunFlower extends plant {
 
-        SunFlower(ImageView plant_place, int row,Pane GamepagePane, Label SunTokenLabel) {
+        SunFlower(ImageView plant_place, int row,Pane GamepagePane, Label SunTokenLabel, int col) {
             currentImageView = plant_place;
             this.row = row;
+            this.col = col;
             health = 1000;
             attackPower = 0;
-            this.setX(plant_place.getLocalToSceneTransform().getTx());
-            this.setY(plant_place.getLocalToSceneTransform().getTy());
+            image_path = "out/production/PVZ/sample/Graphics/sunflower_gif.gif";
+            this.setMyX(plant_place.getLocalToSceneTransform().getTx());
+            this.setMyY(plant_place.getLocalToSceneTransform().getTy());
             giveSun(GamepagePane,SunTokenLabel);
+            loadTime = 5;
+            isAvailable = true;
+        }
+        @Override
+        public void work(Pane GamepagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies){
+            giveSun(GamepagePane, SunTokenLabel);
         }
 
         public void giveSun(Pane GamepagePane, Label SunTokenLabel) {
@@ -139,6 +153,8 @@ public class plants {
                    Platform.runLater(new Runnable() {
                        @Override
                        public void run() {
+                           if(variables.isGamePaused)
+                               return;
                            miscellaneous.sunToken s = new miscellaneous.sunToken(25, GamepagePane, SunTokenLabel, 3000,x,y);
                            GamepagePane.getChildren().add(s.getSun());
                            miscellaneous.Animate animation = new miscellaneous.Animate(x, y, x, y+50, s.getSun(), 1);
@@ -151,18 +167,23 @@ public class plants {
     }
 
     static class PeaShooter extends plant{
-        PeaShooter(ImageView plant_place, int row, AnchorPane GamePagePane, ArrayList<ArrayList<Zombies.Zombie>> list_zombies) throws FileNotFoundException {
+        PeaShooter(ImageView plant_place, int row, AnchorPane GamePagePane, ArrayList<ArrayList<Zombies.Zombie>> list_zombies, int col) throws FileNotFoundException {
             health = 2500;
             attackPower = 100;
+            this.col = col;
             currentImageView = plant_place;
             this.row = row;
-            this.setX(plant_place.getLocalToSceneTransform().getTx());
-            this.setY(plant_place.getLocalToSceneTransform().getTy());
+            image_path = "out/production/PVZ/sample/Graphics/peashooter_gif.gif";
+            this.setMyX(plant_place.getLocalToSceneTransform().getTx());
+            this.setMyY(plant_place.getLocalToSceneTransform().getTy());
             this.shoot(GamePagePane,list_zombies);
+            loadTime = 7;
+            isAvailable = true;
        }
-
-
-       public void shoot(AnchorPane GamePagePane, ArrayList<ArrayList<Zombies.Zombie>> list_zombies) throws FileNotFoundException {
+       public void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> list_zombies) throws FileNotFoundException {
+            shoot(GamePagePane, list_zombies);
+       }
+       public void shoot(Pane GamePagePane, ArrayList<ArrayList<Zombies.Zombie>> list_zombies) throws FileNotFoundException {
             //TODO
            double x = currentImageView.getLocalToSceneTransform().getTx() + 45;
            double y = currentImageView.getLocalToSceneTransform().getTy() + 10;
@@ -177,6 +198,8 @@ public class plants {
                                timer.cancel();
                                timer.purge();
                            }
+                           if(variables.isGamePaused)
+                               return;
                            Pea pea = null;
                            if(list_zombies.get(row).size()>0){
                                try {
@@ -203,18 +226,18 @@ public class plants {
 //        }
 //    }
 
-    static class ChillyBomb extends plant{
-        ChillyBomb(){
-        }
-        public void explode(){
-            //TODO
-        }
-    }
-
-    static class Walnut extends plant{
-        Walnut(){
-        }
-    }
+//    static class ChillyBomb extends plant{
+//        ChillyBomb(){
+//        }
+//        public void explode(){
+//            //TODO
+//        }
+//    }
+//
+//    static class Walnut extends plant{
+//        Walnut(){
+//        }
+//    }
 
     static class Pea extends ImageView{
         Pea pea = this;
@@ -224,7 +247,7 @@ public class plants {
             this.x = x;
             this.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/pea.png")));
         }
-        void shoot(AnchorPane GamePagePane, ArrayList<ArrayList<Zombies.Zombie>> list_zombies, int row){
+        void shoot(Pane GamePagePane, ArrayList<ArrayList<Zombies.Zombie>> list_zombies, int row){
             Timer timer = new Timer();
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -232,18 +255,20 @@ public class plants {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            pea.setX(pea.getX()+5);
-                            for(int i=0; i<list_zombies.get(row).size(); i++){
-                                if(pea.getX()<list_zombies.get(row).get(i).getX()+5 && pea.getX()>list_zombies.get(row).get(i).getX()-5){
-                                    //Hit Zombie
-                                    list_zombies.get(row).get(i).get_hit(damage, list_zombies, row, i);
-                                    pea.setX(800);
+                            if(!variables.isGamePaused){
+                                pea.setX(pea.getX()+5);
+                                for(int i=0; i<list_zombies.get(row).size(); i++){
+                                    if(pea.getX()<list_zombies.get(row).get(i).getX()+5 && pea.getX()>list_zombies.get(row).get(i).getX()-5){
+                                        //Hit Zombie
+                                        list_zombies.get(row).get(i).get_hit(damage, list_zombies, row, i);
+                                        pea.setX(800);
+                                    }
                                 }
-                            }
-                            if(pea.getX()>750){
-                                GamePagePane.getChildren().remove(pea);
-                                timer.cancel();
-                                timer.purge();
+                                if(pea.getX()>750){
+                                    GamePagePane.getChildren().remove(pea);
+                                    timer.cancel();
+                                    timer.purge();
+                                }
                             }
                         }
                     });

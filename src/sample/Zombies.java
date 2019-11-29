@@ -1,6 +1,5 @@
 package sample;
 
-import javafx.css.Styleable;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
@@ -16,12 +15,13 @@ public class Zombies {
         double x = 750;
         double y;
         int row;
+        String image_path = "out/production/PVZ/sample/Graphics/zombie_normal.gif";
         ArrayList<plants.plant> row_plants;
         Zombie(double y, int row, ArrayList<plants.plant> row_plants) throws FileNotFoundException {
             this.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/zombie_normal.gif")));
-            this.setX(x);
+            this.setMyX(x);
             this.y = y;
-            this.setY(y);
+            this.setMyY(y);
             this.row = row;
             this.row_plants = row_plants;
 
@@ -73,9 +73,9 @@ public class Zombies {
                     return;
                 }
             }
-            this.setX(this.getX()-0.7);
+            this.setMyX(this.getX()-0.7);
             if(this.getX()<100){
-                this.setX(100);
+                this.setMyX(100);
             }
         }
     }

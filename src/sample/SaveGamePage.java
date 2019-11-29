@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,6 +14,8 @@ import java.io.IOException;
 public class SaveGamePage {
     @FXML
     ImageView HomeImage;
+    @FXML
+    Label SavedGameSlot1,SavedGameSlot2,SavedGameSlot3;
     @FXML
     void onMouseEnterHomeButton() throws FileNotFoundException {
         HomeImage.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/homebuttonyellow.png")));

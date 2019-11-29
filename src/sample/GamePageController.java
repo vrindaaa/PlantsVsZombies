@@ -62,14 +62,19 @@ public class GamePageController {
     }
 
     void start_game() throws FileNotFoundException {
-        isGamePaused = false;
+        //isGamePaused = false;
         currentLevel = Level.getLevel(1);
         card_wallnut = new wallNutCard(currentLevel.WallNutUnlocked, WallnutCard, true);
         setCards();
-        for(int i=0; i<5; i++){
-            lawn_zombies.add(new ArrayList<Zombie>());
-            lawn_plants.add(new ArrayList<plant>());
-        }
+        lawn_zombies = curGame.listOflistOfZombies;
+        lawn_plants = curGame.listOflistOfPlants;
+        SunTokenLabel.setText(curGame.sunTokenString);
+        add_plants();
+        add_zombies();
+//        for(int i=0; i<5; i++){
+//            lawn_zombies.add(new ArrayList<Zombie>());
+//            lawn_plants.add(new ArrayList<plant>());
+//        }
         //Generating Zombies
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -79,7 +84,8 @@ public class GamePageController {
                     @Override
                     public void run() {
                         try {
-                            generate_zombie();
+                            if(!isGamePaused)
+                                generate_zombie();
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
@@ -87,6 +93,33 @@ public class GamePageController {
                 });
             }
         },10000,80000);
+    }
+    void add_zombies() throws FileNotFoundException {
+        for(int i=0; i<5; i++){
+            for(int j=0; j<lawn_zombies.get(i).size(); j++){
+                Zombie temp = lawn_zombies.get(i).get(j);
+                temp.setImage(new Image(new FileInputStream(lawn_zombies.get(i).get(j).image_path)));
+                temp.setX(temp.myX);
+                temp.setY(temp.myY);
+                try{
+                GamepagePane.getChildren().add(temp);}
+                catch(Exception e){
+                    System.out.println("oops");
+                }
+            }
+        }
+    }
+    void add_plants() throws FileNotFoundException {
+        for(int i=0; i<5; i++){
+            for(int j=0; j<lawn_plants.get(i).size(); j++){
+                plant temp = lawn_plants.get(i).get(j);
+                temp.setX(temp.myX);
+                temp.setY(temp.myY);
+                getLawn().get(temp.row*9 +temp.col).setImage(new Image(new FileInputStream(temp.image_path)));
+                temp.currentImageView = getLawn().get(temp.row*9 +temp.col);
+                temp.work(GamepagePane, SunTokenLabel, lawn_zombies);
+            }
+        }
     }
     void generate_zombie() throws FileNotFoundException {
         int pos = rand.nextInt(5);
@@ -98,21 +131,23 @@ public class GamePageController {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(() -> {
-                    z.move(GamepagePane);
-                    if(z.getHealth()<=0){
-                        GamepagePane.getChildren().remove(z);
-                    }
-                });
+                if(!isGamePaused){
+                    Platform.runLater(() -> {
+                        z.move(GamepagePane);
+                        if(z.getHealth()<=0){
+                            GamepagePane.getChildren().remove(z);
+                        }
+                    });
+                }
             }
         },0,40);
     }
     //Main Game Start
     @FXML
     private void start_sun() throws FileNotFoundException {
-        start_game();
         if(!t.isAlive()){
             t.start();
+            start_game();
         }
         if(!t2.isAlive()){
             t2.start();
@@ -133,6 +168,11 @@ public class GamePageController {
     }
     @FXML
     private void HandleDragSunflowerCard(MouseEvent event) throws FileNotFoundException {
+        if(!SunFlower.isAvailable){
+            System.out.println("not available");
+            return;
+        }
+        if(!isGamePaused){
         Dragboard db = SunCard.startDragAndDrop(TransferMode.ANY);
         ClipboardContent cb = new ClipboardContent();
         cb.putString("sunflower_gif.gif");
@@ -140,18 +180,25 @@ public class GamePageController {
         db.setContent(cb);
         event.consume();
     }
+    }
     @FXML
     private void HandleDragPeaShooterCard(MouseEvent event) throws FileNotFoundException {
+        if(!PeaShooter.isAvailable){
+            System.out.println("pea shooter not available");
+            return;
+        }
+        if(!isGamePaused){
         Dragboard db = PeaShooterCard.startDragAndDrop(TransferMode.ANY);
         ClipboardContent cb = new ClipboardContent();
         cb.putString("peashooter_gif.gif");
         cb.putImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/peashootercard_compressed.jpg")));
         db.setContent(cb);
         event.consume();
+        }
     }
     @FXML
     private void HandleDragWallnutCard(MouseEvent event) throws FileNotFoundException {
-        if(card_wallnut.isUnlocked){
+        if(card_wallnut.isUnlocked && !isGamePaused){
         Dragboard db = WallnutCard.startDragAndDrop(TransferMode.ANY);
         ClipboardContent cb = new ClipboardContent();
         cb.putString("walnut_gif.gif");
@@ -168,6 +215,7 @@ public class GamePageController {
     }
     @FXML
     void onClickPauseButton() throws IOException {
+        curGame.sunTokenString = SunTokenLabel.getText();
         isGamePaused = true;
         PauseMenuStage = new Stage();
         PauseMenuStage.setScene(load(getClass().getResource("PauseMenu.fxml")));
@@ -196,9 +244,18 @@ public class GamePageController {
                         }else{
                             return;
                         }
-                        PeaShooter cur_plant = new PeaShooter(lawn.get(i), row, GamepagePane,lawn_zombies);
+                        PeaShooter cur_plant = new PeaShooter(lawn.get(i), row, GamepagePane,lawn_zombies, i%9);
                         lawn_plants.get(row).add(cur_plant);
                         lawn.get(i).setImage(myPlant);
+                        cur_plant.isAvailable = false;
+                        Timer timer = new Timer();
+                        long temp = PeaShooter.loadTime;
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                PeaShooter.isAvailable = true;
+                            }
+                        }, temp * 1000);
                     }
                     if (db.getString().equals("sunflower_gif.gif")){
                         if(Integer.parseInt(SunTokenLabel.getText())>=25){
@@ -206,9 +263,20 @@ public class GamePageController {
                         }else{
                             return;
                         }
-                        SunFlower cur_plant = new SunFlower(lawn.get(i), row, GamepagePane, SunTokenLabel);
+                        SunFlower cur_plant = new SunFlower(lawn.get(i), row, GamepagePane, SunTokenLabel, i%9);
                         lawn_plants.get(row).add(cur_plant);
                         lawn.get(i).setImage(myPlant);
+                        SunFlower.isAvailable = false;
+                        System.out.println("here");
+                        Timer timer = new Timer();
+                        long temp = cur_plant.loadTime;
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                SunFlower.isAvailable = true;
+                                System.out.println("here2");
+                            }
+                        }, temp * 1000);
                     }
                     return;
                 }
@@ -245,7 +313,8 @@ public class GamePageController {
         @Override
         public void run(){
             while(true){
-                Platform.runLater(ok);
+                if(!isGamePaused)
+                    Platform.runLater(ok);
                 try {
                     TimeUnit.SECONDS.sleep(variables.sunTokenDelay);
                 } catch (InterruptedException e) {
@@ -270,7 +339,8 @@ public class GamePageController {
         @Override
         public void run(){
             while(true){
-                Platform.runLater(ok2);
+                if(!isGamePaused)
+                    Platform.runLater(ok2);
                 try {
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {

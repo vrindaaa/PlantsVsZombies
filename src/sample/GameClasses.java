@@ -5,11 +5,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameClasses {
-    public static void Serialize(allUsers a) throws IOException {
+    public static void Serialize(Game a) throws IOException, UserAlreadyExistsException {
+        variables.currentUser.addGame(a);
+        allUsers al = null;
+        try {
+            al = Deserialize();
+        }catch (Exception e){
+            al = new allUsers();
+        }
+        al.updateUser(variables.currentUser);
+
         ObjectOutputStream out = null;
         try{
             out = new ObjectOutputStream(new FileOutputStream("savedUsers.txt"));
-            out.writeObject(a);
+            out.writeObject(al);
         }finally {
             out.close();
         }
@@ -28,9 +37,23 @@ public class GameClasses {
     }
     static class Game implements Serializable {
         int levelsUnlocked;
+        String sunTokenString;
+        ArrayList<ArrayList<Zombies.Zombie>> listOflistOfZombies;
+        ArrayList<ArrayList<plants.plant>> listOflistOfPlants;
 
-        public Game() {
-            this.levelsUnlocked = 1;
+        public Game(int levelsUnlocked, ArrayList<ArrayList<Zombies.Zombie>> listOflistOfZombies, ArrayList<ArrayList<plants.plant>> listOflistOfPlants, String SunTokenString) {
+            this.levelsUnlocked = levelsUnlocked;
+            this.listOflistOfZombies = listOflistOfZombies;
+            this.listOflistOfPlants = listOflistOfPlants;
+            this.sunTokenString = SunTokenString;
+        }
+
+        public ArrayList<ArrayList<Zombies.Zombie>> getListOflistOfZombies() {
+            return listOflistOfZombies;
+        }
+
+        public ArrayList<ArrayList<plants.plant>> getListOflistOfPlants() {
+            return listOflistOfPlants;
         }
 
         public int getLevelsUnlocked() {
@@ -50,7 +73,9 @@ public class GameClasses {
             this.name = name;
             this.level = level;
         }
-
+        public void addGame(Game g){
+            savedGames.add(0,g);
+        }
         public String getName() {
             return name;
         }
@@ -75,14 +100,11 @@ public class GameClasses {
             this.level = level;
         }
     }
-
     static class UserAlreadyExistsException extends Exception {
         public UserAlreadyExistsException(String name) {
             super("User with name " + name + " already exists please try a different username");
         }
     }
-
-
     static class allUsers implements Serializable {
         HashMap<User, Integer> users = new HashMap<User, Integer>();
         ArrayList<User> usersList = new ArrayList<User>();
@@ -93,7 +115,15 @@ public class GameClasses {
             users.put(u,1);
             usersList.add(u);
         }
-
+        public void updateUser(User u) throws UserAlreadyExistsException {
+            for(int i = 0;i< usersList.size();i++){
+                if(usersList.get(i).getName().equals(u.getName())){
+                    usersList.set(i,u);
+                    return;
+                }
+            }
+            addUser(u);
+        }
         public ArrayList<User> getUsersList() {
             return usersList;
         }
