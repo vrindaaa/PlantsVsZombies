@@ -1,7 +1,11 @@
 package sample;
 
 import java.util.HashMap;
-
+class InvalidLevelException extends RuntimeException{
+    InvalidLevelException(){
+        super("Invalid Level");
+    }
+}
 public class Level {
     static HashMap<Integer, Level> levels = new HashMap<>();
     public boolean WallNutUnlocked = false;
@@ -25,8 +29,11 @@ public class Level {
                 case 2:
                     l = new Level(true, false, false);
                     levels.put(num, l); break;
-
-
+                case 3:
+                    l = new Level(true, true, true);
+                    levels.put(num,l); break;
+                default:
+                    throw new InvalidLevelException();
             }
             return l;
         }
