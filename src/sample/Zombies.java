@@ -18,7 +18,7 @@ public class Zombies {
         int row;
         ArrayList<plants.plant> row_plants;
         Zombie(double y, int row, ArrayList<plants.plant> row_plants) throws FileNotFoundException {
-            this.setImage(new Image(new FileInputStream("C:\\Users\\Shiv\\Desktop\\PlantsVsZombies-master\\PVZ\\src\\sample\\Graphics\\zombie_normal.gif")));
+            this.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/zombie_normal.gif")));
             this.setX(x);
             this.y = y;
             this.setY(y);

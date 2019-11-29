@@ -58,7 +58,7 @@ public class plants {
         peaShooterCard() throws FileNotFoundException {
             name = "PeaShooter";
             loadTime = 10;
-            cardImageView = new ImageView(new Image(new FileInputStream("C:\\Users\\Shiv\\Desktop\\PlantsVsZombies-master\\PVZ\\src\\sample\\Graphics\\card_peashooter.png")));
+            cardImageView = new ImageView(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/card_peashooter.png")));
             cost = 100;
         }
     }
@@ -228,7 +228,6 @@ public class plants {
         static double damage = 20;
         Pea(double x) throws FileNotFoundException {
             this.x = x;
-            //this.setImage(new Image(new FileInputStream("C:\\Users\\Shiv\\Desktop\\PlantsVsZombies-master\\PVZ\\src\\sample\\Graphics\\pea.png")));
             this.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/pea.png")));
         }
         void shoot(AnchorPane GamePagePane, ArrayList<ArrayList<Zombies.Zombie>> list_zombies, int row){

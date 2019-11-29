@@ -65,7 +65,7 @@ public class miscellaneous {
             this.GamepagePane = GamepagePane;
             this.SunTokenLabel = SunTokenLabel;
             try {
-                sun = new ImageView(new Image(new FileInputStream("C:\\Users\\Shiv\\Desktop\\PlantsVsZombies-master\\PVZ\\src\\sample\\Graphics\\sun.gif")));
+                sun = new ImageView(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/sun.gif")));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

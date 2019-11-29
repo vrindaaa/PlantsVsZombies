@@ -37,7 +37,7 @@ public class trying {
                 ImageView a = new ImageView();
                 try {
                     //a.setImage(new Image(new FileInputStream("$Graphics\\pea.png" )));
-                    a.setImage(new Image(new FileInputStream("C:\\Users\\Shiv\\Desktop\\PlantsVsZombies-master\\PVZ\\src\\sample\\Graphics\\pea.png")));
+                    a.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/pea.png")));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
