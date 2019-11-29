@@ -37,7 +37,7 @@ public class GamePageController {
     @FXML
     ImageView e1,e2,e3,e4,e5,e6,e7,e8,e9;
     @FXML
-    ImageView SunCard, PeaShooterCard, WallnutCard;
+    ImageView SunCard, PeaShooterCard, WallnutCard, lockWallnut;
     @FXML
     ProgressBar progressBar;
     Level currentLevel = null;
@@ -147,13 +147,14 @@ public class GamePageController {
     }
     @FXML
     private void HandleDragWallnutCard(MouseEvent event) throws FileNotFoundException {
-
+        if(card_wallnut.isUnlocked){
         Dragboard db = WallnutCard.startDragAndDrop(TransferMode.ANY);
         ClipboardContent cb = new ClipboardContent();
         cb.putString("walnut_gif.gif");
         cb.putImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/tallnutcard_compressed.jpg")));
         db.setContent(cb);
         event.consume();
+        }
     }
     @FXML
     private void onDragOver(DragEvent event){
@@ -177,7 +178,7 @@ public class GamePageController {
                     return;
                 }
                 if (db.hasImage()) {
-                    String path = "C:\\Users\\Shiv\\Desktop\\PlantsVsZombies-master\\PVZ\\src\\sample\\Graphics\\" + db.getString();
+                    String path = "out/production/PVZ/sample/Graphics/" + db.getString();
                     Image myPlant = new Image(new FileInputStream(path));
                     int row = i /9;
                     if (db.getString().equals("peashooter_gif.gif")) {
@@ -209,7 +210,7 @@ public class GamePageController {
 
     void setCards(){
         if(!card_wallnut.isUnlocked){
-
+            lockWallnut.setOpacity(1);
         }
     }
 

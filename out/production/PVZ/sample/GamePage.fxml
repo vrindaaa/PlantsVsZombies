@@ -133,6 +133,11 @@
                   <Image url="@Graphics/chillyCard.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="lockWallnut" fitHeight="46.0" fitWidth="50.0" layoutX="36.0" layoutY="224.0" onDragDetected="#HandleDragWallnutCard" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/lock.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </root>
