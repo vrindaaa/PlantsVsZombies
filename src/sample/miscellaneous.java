@@ -102,7 +102,12 @@ public class miscellaneous {
         }
     }
     static class LawnMower{
+        int rowNumber;
         boolean used;
+        ImageView place;
+        LawnMower(int row){
+            rowNumber = row;
+        }
         void mow(){}
     }
 

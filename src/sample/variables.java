@@ -17,11 +17,13 @@ public class variables {
         static GameClasses.Game getNewGame(){
             ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies2 = new ArrayList<>();
             ArrayList<ArrayList<plants.plant>> lawn_plants2 = new ArrayList<>();
+            ArrayList<miscellaneous.LawnMower> listOfLawnMowers = new ArrayList<>();
             for(int i=0; i<5; i++){
                 lawn_zombies2.add(new ArrayList<Zombies.Zombie>());
                 lawn_plants2.add(new ArrayList<plants.plant>());
+                listOfLawnMowers.add(new miscellaneous.LawnMower(i));
             }
-            return new GameClasses.Game(0,lawn_zombies2,lawn_plants2, "50");
+            return new GameClasses.Game(0,lawn_zombies2,lawn_plants2, "50", listOfLawnMowers);
         }
     }
     static GameClasses.Game curGame = Factory_New_Game.getNewGame();

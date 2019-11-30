@@ -42,13 +42,15 @@ public class GameClasses {
         String sunTokenString;
         ArrayList<ArrayList<Zombies.Zombie>> listOflistOfZombies;
         ArrayList<ArrayList<plants.plant>> listOflistOfPlants;
+        ArrayList<miscellaneous.LawnMower> listOfLawnMowers;
         String id;
 
-        public Game(int levelsUnlocked, ArrayList<ArrayList<Zombies.Zombie>> listOflistOfZombies, ArrayList<ArrayList<plants.plant>> listOflistOfPlants, String SunTokenString) {
+        public Game(int levelsUnlocked, ArrayList<ArrayList<Zombies.Zombie>> listOflistOfZombies, ArrayList<ArrayList<plants.plant>> listOflistOfPlants, String SunTokenString, ArrayList<miscellaneous.LawnMower> listOfLawnMowers) {
             this.levelsUnlocked = levelsUnlocked;
             this.listOflistOfZombies = listOflistOfZombies;
             this.listOflistOfPlants = listOflistOfPlants;
             this.sunTokenString = SunTokenString;
+            this.listOfLawnMowers = listOfLawnMowers;
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
             LocalDateTime now = LocalDateTime.now();
             id = dtf.format(now);

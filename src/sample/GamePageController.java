@@ -39,12 +39,15 @@ public class GamePageController {
     @FXML
     ImageView e1,e2,e3,e4,e5,e6,e7,e8,e9;
     @FXML
+    ImageView LawnMower_a, LawnMower_b, LawnMower_c, LawnMower_d, LawnMower_e;
+    @FXML
     ImageView SunCard, PeaShooterCard, WallnutCard, lockWallnut;
     @FXML
     ProgressBar progressBar;
     Level currentLevel = null;
     ArrayList<ArrayList<Zombie>> lawn_zombies = new ArrayList<>();
     ArrayList<ArrayList<plant>> lawn_plants = new ArrayList<>();
+    ArrayList<miscellaneous.LawnMower> lawn_mowers = new ArrayList<>();
     wallNutCard card_wallnut = null;
     ImageView GamePausedImageView = new ImageView(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/game_paused.jpg")));
     @FXML
@@ -57,7 +60,15 @@ public class GamePageController {
     progress_1 temppp = new progress_1();
     Thread t2 = new Thread(temppp);
     Thread ok2 = new Thread(new progress_2());
-
+    public  ArrayList<ImageView> getLawnMowerImageView(){
+        ArrayList<ImageView> a = new ArrayList<>();
+        a.add(LawnMower_a);
+        a.add(LawnMower_b);
+        a.add(LawnMower_c);
+        a.add(LawnMower_d);
+        a.add(LawnMower_e);
+        return a;
+    }
     public GamePageController() throws FileNotFoundException {
     }
 
@@ -73,6 +84,17 @@ public class GamePageController {
         setCards();
         lawn_zombies = curGame.listOflistOfZombies;
         lawn_plants = curGame.listOflistOfPlants;
+        lawn_mowers = curGame.listOfLawnMowers;
+        ArrayList<ImageView> lawnMowerImageView = getLawnMowerImageView();
+        for(int i=0; i<5; i++){
+            lawn_mowers.get(i).place = lawnMowerImageView.get(i);
+            if(!lawn_mowers.get(i).used){
+                lawnMowerImageView.get(i).setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/lawn_mower.gif")));
+            }
+            else{
+                lawnMowerImageView.get(i).setImage(null);
+            }
+        }
         SunTokenLabel.setText(curGame.sunTokenString);
         add_plants();
         add_zombies();
