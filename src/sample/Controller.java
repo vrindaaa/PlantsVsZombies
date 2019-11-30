@@ -65,6 +65,12 @@ public class Controller {
         MiniGameButton.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/SelectorScreen_Survival_button.png")));
     }
     @FXML
+    void survivalButtonClicked() throws IOException {
+        variables.currentLevel = Level.getLevel(6);
+        Scene HomePage = FXMLLoader.load(getClass().getResource("GamePage.fxml"));
+        Main.GameStage.setScene(HomePage);
+    }
+    @FXML
     void onMouseEnterSurvivalButton() throws FileNotFoundException {
         SurvivalButton.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/SelectorScreen_vasebreaker_highlight.png")));
     }

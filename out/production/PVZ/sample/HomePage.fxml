@@ -49,7 +49,7 @@
                <Image url="@Graphics/SelectorScreen_Survival_button.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="SurvivalButton" fitHeight="164.0" fitWidth="355.0" layoutX="537.0" layoutY="426.0" onMouseClicked="#UnderConstructionButtonClicked" onMouseEntered="#onMouseEnterSurvivalButton" onMouseExited="#onMouseExitSurvivalButton" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="SurvivalButton" fitHeight="164.0" fitWidth="355.0" layoutX="537.0" layoutY="426.0" onMouseClicked="#survivalButtonClicked" onMouseEntered="#onMouseEnterSurvivalButton" onMouseExited="#onMouseExitSurvivalButton" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@Graphics/SelectorScreen_Vasebreaker_button.png" />
             </image>

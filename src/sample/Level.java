@@ -43,7 +43,7 @@ public class Level {
                     l = new Level(true, true, true,30,5);
                     levels.put(num,l); break;
                 case 6:
-                    l = new Level(true, true, true,40,6);
+                    l = new Level(true, true, true,200,6);
                     levels.put(num,l); break;
                 default:
                     throw new InvalidLevelException();
