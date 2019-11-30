@@ -238,11 +238,21 @@ public class plants {
 //        }
 //    }
 //
-//    static class Walnut extends plant{
-//        Walnut(){
-//            currentImageView = new I
-//        }
-//    }
+    static class Walnut extends plant{
+        Walnut(ImageView i, int row, Pane GamePagePane, int col){
+            this.currentImageView = i;
+            health = 12000;
+            this.row = row;
+            this.col = col;
+            attackPower = 0;
+            image_path = "out/production/PVZ/sample/Graphics/wallnut_gif.gif";
+            this.setMyX(currentImageView.getLocalToSceneTransform().getTx());
+            this.setMyY(currentImageView.getLocalToSceneTransform().getTy());
+            loadTime = 10;
+            isAvailable = true;
+        }
+        void work(){}
+    }
 
     static class Pea extends ImageView{
         Pea pea = this;

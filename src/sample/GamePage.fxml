@@ -148,6 +148,31 @@
                   <Image url="@Graphics/lock.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="sunflowerLoad" fitHeight="42.0" fitWidth="35.0" layoutX="42.0" layoutY="115.0" onDragDetected="#HandleDragSunflowerCard" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/loading_gif.gif" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="peashooterLoad" fitHeight="42.0" fitWidth="35.0" layoutX="36.0" layoutY="173.0" onDragDetected="#HandleDragPeaShooterCard" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/loading_gif.gif" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="walnutLoad" fitHeight="42.0" fitWidth="35.0" layoutX="42.0" layoutY="237.0" onDragDetected="#HandleDragWallnutCard" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/loading_gif.gif" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="repeaterLoad" fitHeight="42.0" fitWidth="35.0" layoutX="42.0" layoutY="296.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/loading_gif.gif" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="chilliLoad" fitHeight="42.0" fitWidth="35.0" layoutX="42.0" layoutY="347.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/loading_gif.gif" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </root>

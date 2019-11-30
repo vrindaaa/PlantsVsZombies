@@ -12,7 +12,9 @@ public class Level {
     public boolean repeaterUnlocked = false;
     public boolean cherryBombUnlocked = false;
     public int max_zombies = 10;
-    private Level(boolean WallNutUnlocked, boolean repeaterUnlocked, boolean cherryBombUnlocked,int max_zombies){
+    public int levelNo;
+    private Level(boolean WallNutUnlocked, boolean repeaterUnlocked, boolean cherryBombUnlocked,int max_zombies,int levelNo){
+        this.levelNo = levelNo;
         this.max_zombies = max_zombies;
         this.WallNutUnlocked = WallNutUnlocked;
         this.repeaterUnlocked = repeaterUnlocked;
@@ -26,22 +28,22 @@ public class Level {
             Level l = null;
             switch (num){
                 case 1:
-                    l = new Level(false, false, false,10);
+                    l = new Level(false, false, false,10,1);
                     levels.put(num, l); break;
                 case 2:
-                    l = new Level(true, false, false,15);
+                    l = new Level(true, false, false,15,2);
                     levels.put(num, l); break;
                 case 3:
-                    l = new Level(true, true, true,20);
+                    l = new Level(true, true, true,20,3);
                     levels.put(num,l); break;
                 case 4:
-                    l = new Level(true, true, true,25);
+                    l = new Level(true, true, true,25,4);
                     levels.put(num,l); break;
                 case 5:
-                    l = new Level(true, true, true,30);
+                    l = new Level(true, true, true,30,5);
                     levels.put(num,l); break;
                 case 6:
-                    l = new Level(true, true, true,40);
+                    l = new Level(true, true, true,40,6);
                     levels.put(num,l); break;
                 default:
                     throw new InvalidLevelException();

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GameWon">
+   <root>
+      <AnchorPane prefHeight="643.0" prefWidth="382.0">
+         <children>
+            <ImageView fitHeight="643.0" fitWidth="495.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/GameWonBg.jpeg" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" ellipsisString="" layoutX="17.0" layoutY="90.0" prefHeight="146.0" prefWidth="360.0" text="Congratulations Level Cleared" textAlignment="CENTER" textFill="#f20000" textOverrun="CLIP" wrapText="true">
+               <font>
+                  <Font name="ZombieA" size="37.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="HomeImage" fitHeight="93.0" fitWidth="162.0" layoutX="112.0" layoutY="395.0" onMouseClicked="#onButtonClick" onMouseEntered="#onMouseEnterHomeButton" onMouseExited="#onMouseExitHomeButton" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/homebuttongreen.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </root>
+</Scene>

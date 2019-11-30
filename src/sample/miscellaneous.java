@@ -140,7 +140,6 @@ public class miscellaneous {
             rowNumber = row;
         }
         void mow(Pane GamePagePane, double x, double y, ArrayList<Zombies.Zombie> zombies) throws FileNotFoundException {
-            this.used = true;
             place.setImage(null);
             ImageView val = new ImageView(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/lawn_mower.gif")));
             val.setX(x);
@@ -150,6 +149,7 @@ public class miscellaneous {
             Animate animation = new Animate(x, y+50, 750, y+50, val, 3);
             animation.startLawnMower(GamePagePane, zombies);
             Timer timer = new Timer();
+            LawnMower temp = this;
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -157,6 +157,7 @@ public class miscellaneous {
                         @Override
                         public void run() {
                             GamePagePane.getChildren().remove(val);
+                            temp.used = true;
                         }
                     });
                 }

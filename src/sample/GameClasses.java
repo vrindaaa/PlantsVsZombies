@@ -100,7 +100,9 @@ public class GameClasses {
         }
 
         public void setLevel(int level) {
-            this.level = level;
+            if(this.level < level) {
+                this.level = level;
+            }
         }
     }
     static class UserAlreadyExistsException extends Exception {

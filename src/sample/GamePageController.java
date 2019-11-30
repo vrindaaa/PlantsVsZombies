@@ -43,12 +43,13 @@ public class GamePageController {
     @FXML
     ImageView SunCard, PeaShooterCard, WallnutCard, lockWallnut;
     @FXML
+    ImageView sunflowerLoad,peashooterLoad,walnutLoad,repeaterLoad,chilliLoad;
+    @FXML
     ProgressBar progressBar;
     ArrayList<ArrayList<Zombie>> lawn_zombies = new ArrayList<>();
     ArrayList<ArrayList<plant>> lawn_plants = new ArrayList<>();
     ArrayList<miscellaneous.LawnMower> lawn_mowers = new ArrayList<>();
     wallNutCard card_wallnut = null;
-    ImageView GamePausedImageView = new ImageView(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/game_paused.jpg")));
     @FXML
     Label SunTokenLabel;
     double[] row_coordinates = {0, 60, 130, 205, 280};
@@ -56,9 +57,6 @@ public class GamePageController {
     sun s = new sun();
     Thread t = new Thread(s);
     Thread ok = new Thread(new generate_sun());
-    progress_1 temppp = new progress_1();
-    Thread t2 = new Thread(temppp);
-    Thread ok2 = new Thread(new progress_2());
     public  ArrayList<ImageView> getLawnMowerImageView(){
         ArrayList<ImageView> a = new ArrayList<>();
         a.add(LawnMower_a);
@@ -71,14 +69,26 @@ public class GamePageController {
     public GamePageController() throws FileNotFoundException {
     }
     static Timer zombieGenerator;
-    void upDateProgressBar(){
-        System.out.println(curGame.noOfzombiesKilled+" "+currentLevel.max_zombies);
+    void upDateProgressBar() throws IOException {
+        //System.out.println(curGame.noOfzombiesKilled/currentLevel.max_zombies);
         progressBar.setProgress(curGame.noOfzombiesKilled/currentLevel.max_zombies);
+        if(curGame.noOfzombiesKilled>=currentLevel.max_zombies){
+            System.out.println("Game Won");
+            for(int i=0; i<timerTaskZombies.size(); i++){
+                timerTaskZombies.get(i).cancel();
+                timerTaskZombies.get(i).purge();
+            }
+            timerTaskZombies = new ArrayList<>();
+            variables.isGamePaused = false;
+            curGame = variables.Factory_New_Game.getNewGame();
+            variables.toStart = true;
+            variables.currentUser.setLevel(currentLevel.levelNo+1);
+            System.out.println(curGame.cur_level);
+            Main.GameStage.setScene(load(getClass().getResource("GameWon.fxml")));
+            curGame.noOfzombiesKilled = 0;
+        }
     }
     void start_game() throws FileNotFoundException {
-        System.out.println(currentLevel.max_zombies);
-        System.out.println(progressBar.getProgress());
-        progressBar.setProgress(curGame.noOfzombiesKilled/currentLevel.max_zombies);
         Timer progressTask = new Timer();
         progressTask.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -86,23 +96,27 @@ public class GamePageController {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        upDateProgressBar();
+                        try {
+                            upDateProgressBar();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
-        }, 500, 500);
+        }, 500, 1000);
         for(int i=0; i<timerTaskZombies.size(); i++){
             timerTaskZombies.get(i).cancel();
             timerTaskZombies.get(i).purge();
         }
         timerTaskZombies = new ArrayList<Timer>();
+        timerTaskZombies.add(progressTask);
         toStart = false;
         System.out.println("Game Started Again");
         for(int i=0; i<45; i++){
             getLawn().get(i).setImage(null);
         }
         //isGamePaused = false;
-        currentLevel = Level.getLevel(curGame.cur_level);
         card_wallnut = new wallNutCard(currentLevel.WallNutUnlocked, WallnutCard, true);
         setCards();
         lawn_zombies = curGame.listOflistOfZombies;
@@ -199,6 +213,7 @@ public class GamePageController {
     }
     void generate_zombie() throws FileNotFoundException {
         int pos = rand.nextInt(5);
+        curGame.noOfzombiesGenerated+=1;
         double val_y = row_coordinates[pos];
         Zombie z = new Zombie(val_y, pos, lawn_plants.get(pos), lawn_mowers.get(pos), lawn_zombies.get(pos));
         lawn_zombies.get(pos).add(z);
@@ -206,7 +221,6 @@ public class GamePageController {
         Timer timer = new Timer();
         timerTaskZombies.add(timer);
         z.timer = timer;
-        curGame.noOfzombiesGenerated+=1;
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -237,9 +251,9 @@ public class GamePageController {
         if(!t.isAlive()){
             t.start();
         }
-        if(!t2.isAlive()){
-            t2.start();
-        }
+//        if(!t2.isAlive()){
+//            t2.start();
+//        }
     }
     ArrayList<ImageView> getLawn(){
         ArrayList<ImageView> tiles = new ArrayList<ImageView>();
@@ -286,7 +300,7 @@ public class GamePageController {
     }
     @FXML
     private void HandleDragWallnutCard(MouseEvent event) throws FileNotFoundException {
-        if(card_wallnut.isUnlocked && !isGamePaused){
+        if(card_wallnut.isUnlocked && !isGamePaused && Walnut.isAvailable){
         Dragboard db = WallnutCard.startDragAndDrop(TransferMode.ANY);
         ClipboardContent cb = new ClipboardContent();
         cb.putString("walnut_gif.gif");
@@ -336,12 +350,14 @@ public class GamePageController {
                         lawn_plants.get(row).add(cur_plant);
                         lawn.get(i).setImage(myPlant);
                         cur_plant.isAvailable = false;
+                        peashooterLoad.setOpacity(1);
                         Timer timer = new Timer();
                         long temp = PeaShooter.loadTime;
                         timer.schedule(new TimerTask() {
                             @Override
                             public void run() {
                                 PeaShooter.isAvailable = true;
+                                peashooterLoad.setOpacity(0);
                             }
                         }, temp * 1000);
                     }
@@ -355,6 +371,7 @@ public class GamePageController {
                         lawn_plants.get(row).add(cur_plant);
                         lawn.get(i).setImage(myPlant);
                         SunFlower.isAvailable = false;
+                        sunflowerLoad.setOpacity(1);
                         //System.out.println("here");
                         Timer timer = new Timer();
                         long temp = cur_plant.loadTime;
@@ -362,6 +379,30 @@ public class GamePageController {
                             @Override
                             public void run() {
                                 SunFlower.isAvailable = true;
+                                sunflowerLoad.setOpacity(0);
+                                //System.out.println("here2");
+                            }
+                        }, temp * 1000);
+                    }
+                    if (db.getString().equals("walnut_gif.gif")){
+                        if(Integer.parseInt(SunTokenLabel.getText())>=50){
+                            SunTokenLabel.setText(String.valueOf(Integer.parseInt(SunTokenLabel.getText())-50));
+                        }else{
+                            return;
+                        }
+                        Walnut cur_plant = new Walnut(lawn.get(i), row, GamepagePane, i%9);
+                        lawn_plants.get(row).add(cur_plant);
+                        lawn.get(i).setImage(myPlant);
+                        Walnut.isAvailable = false;
+                        walnutLoad.setOpacity(1);
+                        //System.out.println("here");
+                        Timer timer = new Timer();
+                        long temp = cur_plant.loadTime;
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                SunFlower.isAvailable = true;
+                                walnutLoad.setOpacity(0);
                                 //System.out.println("here2");
                             }
                         }, temp * 1000);
@@ -406,32 +447,6 @@ public class GamePageController {
                     }
                 try {
                     TimeUnit.SECONDS.sleep(variables.sunTokenDelay);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-    class progress_2 implements Runnable{
-        @Override
-        public void run(){
-            if(progressBar.getProgress()>=1){
-                progressBar.setProgress(0);
-            }
-            else{
-                progressBar.setProgress(progressBar.getProgress()+0.01);
-            }
-        }
-    }
-    class progress_1 extends Thread{
-        boolean paused = false;
-        @Override
-        public void run(){
-            while(true){
-                if(!isGamePaused)
-                    Platform.runLater(ok2);
-                try {
-                    TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

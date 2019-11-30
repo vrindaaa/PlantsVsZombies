@@ -35,6 +35,7 @@ public class PauseMenu {
         variables.toStart = true;
         Main.GameStage.setScene(load(getClass().getResource("GamePage.fxml")));
         variables.PauseMenuStage.close();
+        curGame.noOfzombiesKilled = 0;
     }
     @FXML
     void onClickExit() throws IOException {
