@@ -67,7 +67,7 @@ public class NewUserPage {
     @FXML
     public void onNewUser() throws IOException {
         String name = UsernameInputField.getText();
-        GameClasses.User u = new GameClasses.User(name,1);
+        GameClasses.User u = new GameClasses.User(name,2);
         GameClasses.allUsers a = null;
         System.out.println("Hi " + name);
         try{
@@ -75,7 +75,6 @@ public class NewUserPage {
         }catch (Exception e){
             variables.currentUser = u;
             ErrorLabel.setText("New User Created");
-            System.out.println("sss");
             Scene HomePage = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
             Main.GameStage.setScene(HomePage);
             //System.out.println(e.getMessage());

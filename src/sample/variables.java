@@ -1,14 +1,18 @@
 package sample;
 
+import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 import static javafx.fxml.FXMLLoader.load;
 
 public class variables {
     static int sunTokenDelay = 10; //seconds
     static int sunTokenFallTime = 20000; //ms
+    static double currentProgressBar = 0;
+    static ArrayList<Timer> timerTaskZombies = new ArrayList<Timer>();
     static boolean isGamePaused = false;
     static Stage PauseMenuStage;
     static GameClasses.User currentUser = null;
@@ -26,5 +30,6 @@ public class variables {
             return new GameClasses.Game(0,lawn_zombies2,lawn_plants2, "50", listOfLawnMowers);
         }
     }
+    static Level currentLevel = Level.getLevel(1);
     static GameClasses.Game curGame = Factory_New_Game.getNewGame();
 }

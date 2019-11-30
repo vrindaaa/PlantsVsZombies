@@ -11,6 +11,7 @@ import static javafx.fxml.FXMLLoader.load;
 import static sample.GameClasses.Deserialize;
 import static sample.GameClasses.Serialize;
 import static sample.variables.curGame;
+import static sample.variables.timerTaskZombies;
 
 public class PauseMenu {
     @FXML
@@ -24,6 +25,11 @@ public class PauseMenu {
     }
     @FXML
     void onClickRestart() throws IOException {
+        for(int i=0; i<timerTaskZombies.size(); i++){
+            timerTaskZombies.get(i).cancel();
+            timerTaskZombies.get(i).purge();
+        }
+        timerTaskZombies = new ArrayList<>();
         variables.isGamePaused = false;
         curGame = variables.Factory_New_Game.getNewGame();
         variables.toStart = true;
@@ -32,8 +38,14 @@ public class PauseMenu {
     }
     @FXML
     void onClickExit() throws IOException {
+        for(int i=0; i<timerTaskZombies.size(); i++){
+            timerTaskZombies.get(i).cancel();
+            timerTaskZombies.get(i).purge();
+        }
+        GamePageController.zombieGenerator.cancel();
+        GamePageController.zombieGenerator.purge();
+        timerTaskZombies = new ArrayList<>();
         try {
-            System.out.println("hereeeee");
             for(ArrayList<Zombies.Zombie> uu: curGame.listOflistOfZombies){
                 for(Zombies.Zombie ele : uu){
                     System.out.println(ele.myX + " " + ele.myY);
@@ -56,7 +68,6 @@ public class PauseMenu {
                 }
             }
         }catch (Exception e){
-            System.out.println("Lode lag gaye");
         }
         variables.isGamePaused = false;
         Main.GameStage.setScene(load(getClass().getResource("HomePage.fxml")));

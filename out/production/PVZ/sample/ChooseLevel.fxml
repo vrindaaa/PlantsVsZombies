@@ -9,7 +9,7 @@
 
 <Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ChooseLevelController">
    <root>
-      <AnchorPane prefHeight="413.0" prefWidth="685.0">
+      <AnchorPane fx:id="ChooseLevelPane" onMouseEntered="#onMouseEnter" prefHeight="413.0" prefWidth="685.0">
          <children>
             <ImageView fx:id="Background" fitHeight="519.0" fitWidth="783.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -86,27 +86,27 @@
                   <Image url="@Graphics/NormalButton.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="148.0" layoutX="308.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="Level2ButtonImage" fitHeight="93.0" fitWidth="148.0" layoutX="308.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Graphics/NormalButton.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="93.0" fitWidth="148.0" layoutX="555.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="Level3ButtonImage" fitHeight="93.0" fitWidth="148.0" layoutX="555.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Graphics/NormalButton.png" />
                </image>
             </ImageView>
-            <Label fx:id="Level1Label" alignment="CENTER" layoutX="73.0" layoutY="258.0" onMouseClicked="#PlayGameButtonClicked" onMouseEntered="#onMouseEnterLabel" onMouseExited="#onMouseExitLabel" prefHeight="43.0" prefWidth="128.0" text="Play">
+            <Label fx:id="Level1Label" alignment="CENTER" layoutX="73.0" layoutY="258.0" onMouseClicked="#PlayGameButtonClicked" onMouseEntered="#onMouseEnterLabel1" onMouseExited="#onMouseExitLabel1" prefHeight="43.0" prefWidth="128.0" text="Play">
                <font>
                   <Font name="ZombieA" size="30.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="318.0" layoutY="258.0" prefHeight="43.0" prefWidth="128.0" text="Play">
+            <Label alignment="CENTER" layoutX="318.0" layoutY="258.0" onMouseClicked="#onLevel2CLick" onMouseEntered="#onMouseEnterLabel2" onMouseExited="#onMouseExitLabel2" prefHeight="43.0" prefWidth="128.0" text="Play">
                <font>
                   <Font name="ZombieA" size="30.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="565.0" layoutY="258.0" prefHeight="43.0" prefWidth="128.0" text="Play">
+            <Label alignment="CENTER" layoutX="565.0" layoutY="258.0" onMouseClicked="#onLevel3Click" onMouseEntered="#onMouseEnterLabel3" onMouseExited="#onMouseExitLabel3" prefHeight="43.0" prefWidth="128.0" text="Play">
                <font>
                   <Font name="ZombieA" size="30.0" />
                </font>

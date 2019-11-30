@@ -20,10 +20,10 @@ import sample.miscellaneous.*;
 import java.util.concurrent.TimeUnit;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import sample.variables.*;
 import sample.plants.*;
 import static javafx.fxml.FXMLLoader.load;
 import static sample.variables.*;
+import static sample.variables.currentLevel;
 
 public class GamePageController {
     @FXML
@@ -44,7 +44,6 @@ public class GamePageController {
     ImageView SunCard, PeaShooterCard, WallnutCard, lockWallnut;
     @FXML
     ProgressBar progressBar;
-    Level currentLevel = null;
     ArrayList<ArrayList<Zombie>> lawn_zombies = new ArrayList<>();
     ArrayList<ArrayList<plant>> lawn_plants = new ArrayList<>();
     ArrayList<miscellaneous.LawnMower> lawn_mowers = new ArrayList<>();
@@ -71,15 +70,39 @@ public class GamePageController {
     }
     public GamePageController() throws FileNotFoundException {
     }
-
+    static Timer zombieGenerator;
+    void upDateProgressBar(){
+        System.out.println(curGame.noOfzombiesKilled+" "+currentLevel.max_zombies);
+        progressBar.setProgress(curGame.noOfzombiesKilled/currentLevel.max_zombies);
+    }
     void start_game() throws FileNotFoundException {
+        System.out.println(currentLevel.max_zombies);
+        System.out.println(progressBar.getProgress());
+        progressBar.setProgress(curGame.noOfzombiesKilled/currentLevel.max_zombies);
+        Timer progressTask = new Timer();
+        progressTask.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        upDateProgressBar();
+                    }
+                });
+            }
+        }, 500, 500);
+        for(int i=0; i<timerTaskZombies.size(); i++){
+            timerTaskZombies.get(i).cancel();
+            timerTaskZombies.get(i).purge();
+        }
+        timerTaskZombies = new ArrayList<Timer>();
         toStart = false;
         System.out.println("Game Started Again");
         for(int i=0; i<45; i++){
             getLawn().get(i).setImage(null);
         }
         //isGamePaused = false;
-        currentLevel = Level.getLevel(1);
+        currentLevel = Level.getLevel(curGame.cur_level);
         card_wallnut = new wallNutCard(currentLevel.WallNutUnlocked, WallnutCard, true);
         setCards();
         lawn_zombies = curGame.listOflistOfZombies;
@@ -98,23 +121,28 @@ public class GamePageController {
         SunTokenLabel.setText(curGame.sunTokenString);
         add_plants();
         add_zombies();
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        zombieGenerator = new Timer();
+        zombieGenerator.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
+                        if(curGame.noOfzombiesGenerated >= currentLevel.max_zombies){
+                            zombieGenerator.cancel();
+                            zombieGenerator.purge();
+                        }
                         try {
-                            if(!isGamePaused)
+                            if(!isGamePaused){
                                 generate_zombie();
+                            }
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
                     }
                 });
             }
-        },10000,80000);
+        },10000,5000);
     }
     void add_zombies() throws FileNotFoundException {
         for(int i=0; i<5; i++){
@@ -124,7 +152,33 @@ public class GamePageController {
                 temp.setX(temp.myX);
                 temp.setY(temp.myY);
                 try{
-                GamepagePane.getChildren().add(temp);}
+                GamepagePane.getChildren().add(temp);
+                    Timer timer = new Timer();
+                    temp.timer = timer;
+                    timerTaskZombies.add(timer);
+                    timer.scheduleAtFixedRate(new TimerTask() {
+                        @Override
+                        public void run() {
+                            if(!isGamePaused){
+                                Platform.runLater(() -> {
+                                    try {
+                                        temp.move(GamepagePane);
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    if(temp.getHealth()<=0 || temp.myX<100){
+                                        GamepagePane.getChildren().remove(temp);
+                                        System.out.println("Zombie removed");
+                                        timer.cancel();
+                                        timer.purge();
+                                    }
+                                });
+                            }
+                        }
+                    },0,40);
+                }
                 catch(Exception e){
                     //System.out.println("oops");
                 }
@@ -146,18 +200,28 @@ public class GamePageController {
     void generate_zombie() throws FileNotFoundException {
         int pos = rand.nextInt(5);
         double val_y = row_coordinates[pos];
-        Zombie z = new Zombie(val_y, pos, lawn_plants.get(pos));
+        Zombie z = new Zombie(val_y, pos, lawn_plants.get(pos), lawn_mowers.get(pos), lawn_zombies.get(pos));
         lawn_zombies.get(pos).add(z);
         GamepagePane.getChildren().add(z);
         Timer timer = new Timer();
+        timerTaskZombies.add(timer);
+        z.timer = timer;
+        curGame.noOfzombiesGenerated+=1;
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if(!isGamePaused){
                     Platform.runLater(() -> {
-                        z.move(GamepagePane);
-                        if(z.getHealth()<=0){
+                        try {
+                            z.move(GamepagePane);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if(z.getHealth()<=0 || z.myX<100){
+                            System.out.println("Zombie removed" + z.myX+" "+z.getHealth());
                             GamepagePane.getChildren().remove(z);
+                            timer.cancel();
+                            timer.purge();
                         }
                     });
                 }
@@ -337,8 +401,9 @@ public class GamePageController {
         @Override
         public void run(){
             while(true){
-                if(!isGamePaused)
+                if(!isGamePaused){
                     Platform.runLater(ok);
+                    }
                 try {
                     TimeUnit.SECONDS.sleep(variables.sunTokenDelay);
                 } catch (InterruptedException e) {

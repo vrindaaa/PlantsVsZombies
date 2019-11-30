@@ -38,16 +38,19 @@ public class GameClasses {
         return a;
     }
     static class Game implements Serializable {
-        int levelsUnlocked;
+        public int cur_level;
         String sunTokenString;
+        public double progress;
         ArrayList<ArrayList<Zombies.Zombie>> listOflistOfZombies;
         ArrayList<ArrayList<plants.plant>> listOflistOfPlants;
         ArrayList<miscellaneous.LawnMower> listOfLawnMowers;
         String id;
+        public double noOfzombiesGenerated=0;
+        public double noOfzombiesKilled=0;
 
-        public Game(int levelsUnlocked, ArrayList<ArrayList<Zombies.Zombie>> listOflistOfZombies, ArrayList<ArrayList<plants.plant>> listOflistOfPlants, String SunTokenString, ArrayList<miscellaneous.LawnMower> listOfLawnMowers) {
-            this.levelsUnlocked = levelsUnlocked;
+        public Game(int cur_level, ArrayList<ArrayList<Zombies.Zombie>> listOflistOfZombies, ArrayList<ArrayList<plants.plant>> listOflistOfPlants, String SunTokenString, ArrayList<miscellaneous.LawnMower> listOfLawnMowers) {
             this.listOflistOfZombies = listOflistOfZombies;
+            this.cur_level = cur_level;
             this.listOflistOfPlants = listOflistOfPlants;
             this.sunTokenString = SunTokenString;
             this.listOfLawnMowers = listOfLawnMowers;
@@ -62,14 +65,6 @@ public class GameClasses {
 
         public ArrayList<ArrayList<plants.plant>> getListOflistOfPlants() {
             return listOflistOfPlants;
-        }
-
-        public int getLevelsUnlocked() {
-            return levelsUnlocked;
-        }
-
-        public void setLevelsUnlocked(int levelsUnlocked) {
-            this.levelsUnlocked = levelsUnlocked;
         }
     }
     static class User implements Serializable {

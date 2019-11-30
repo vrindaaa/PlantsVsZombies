@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,6 +49,36 @@ public class miscellaneous {
                         timer.cancel();
                         timer.purge();
                     }
+
+                }
+            },0,1000/24);
+        }
+        public void startLawnMower(Pane GamePagePane, ArrayList<Zombies.Zombie> rowZombies){
+            Timer timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(o.getX() < endX)
+                                o.setX(o.getX()+incrementX);
+                            if(o.getX() >= endX){
+                                timer.cancel();
+                                timer.purge();
+                            }
+                            for(int i=0; i<rowZombies.size(); i++){
+                                Zombies.Zombie cur = rowZombies.get(i);
+                                if(cur.getX()<=5+o.getX() && cur.getX()>= o.getX()-5){
+                                    GamePagePane.getChildren().remove(cur);
+                                    rowZombies.remove(cur);
+                                    variables.curGame.noOfzombiesKilled+=1;
+                                    cur.timer.cancel();
+                                    cur.timer.purge();
+                                }
+                            }
+                        }
+                    });
 
                 }
             },0,1000/24);
@@ -101,14 +132,37 @@ public class miscellaneous {
             return value;
         }
     }
-    static class LawnMower{
+    static class LawnMower implements Serializable {
         int rowNumber;
         boolean used;
-        ImageView place;
+        transient ImageView place;
         LawnMower(int row){
             rowNumber = row;
         }
-        void mow(){}
+        void mow(Pane GamePagePane, double x, double y, ArrayList<Zombies.Zombie> zombies) throws FileNotFoundException {
+            this.used = true;
+            place.setImage(null);
+            ImageView val = new ImageView(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/lawn_mower.gif")));
+            val.setX(x);
+            val.setY(y+50);
+            GamePagePane.getChildren().add(val);
+            System.out.println("okay "+x+" "+y);
+            Animate animation = new Animate(x, y+50, 750, y+50, val, 3);
+            animation.startLawnMower(GamePagePane, zombies);
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            GamePagePane.getChildren().remove(val);
+                        }
+                    });
+                }
+            }, 3000);
+
+        }
     }
 
 }

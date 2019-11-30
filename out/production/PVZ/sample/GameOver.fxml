@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.GameOver">
+   <root>
+      <AnchorPane prefHeight="502.0" prefWidth="389.0">
+         <children>
+            <ImageView fx:id="BG" layoutX="-20.0" layoutY="-13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/zombieAteYourBrains.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="HomeImage" fitHeight="77.0" fitWidth="136.0" layoutX="346.0" layoutY="439.0" onMouseClicked="#onButtonClick" onMouseEntered="#onMouseEnterHomeButton" onMouseExited="#onMouseExitHomeButton" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Graphics/homebuttongreen.png" />
+               </image></ImageView>
+         </children>
+      </AnchorPane>
+   </root>
+</Scene>

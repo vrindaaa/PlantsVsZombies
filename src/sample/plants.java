@@ -153,6 +153,10 @@ public class plants {
                    Platform.runLater(new Runnable() {
                        @Override
                        public void run() {
+                           if(health<=0){
+                               timer.cancel();
+                               timer.purge();
+                           }
                            if(variables.isGamePaused)
                                return;
                            miscellaneous.sunToken s = new miscellaneous.sunToken(25, GamepagePane, SunTokenLabel, 3000,x,y);
