@@ -17,6 +17,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import static sample.GameClasses.Serialize;
+
 public class Controller {
     //hi
     boolean isdone = false;
@@ -82,7 +84,8 @@ public class Controller {
         Main.GameStage.setScene(HomePage);
     }
     @FXML
-    void quit(){
+    void quit() throws IOException, GameClasses.UserAlreadyExistsException {
+        Serialize(variables.curGame);
         Main.GameStage.close();
     }
     @FXML

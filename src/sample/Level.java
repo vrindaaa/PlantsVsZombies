@@ -34,7 +34,7 @@ public class Level {
                     l = new Level(true, false, false,15,2);
                     levels.put(num, l); break;
                 case 3:
-                    l = new Level(true, true, true,20,3);
+                    l = new Level(true, true, false,20,3);
                     levels.put(num,l); break;
                 case 4:
                     l = new Level(true, true, true,25,4);

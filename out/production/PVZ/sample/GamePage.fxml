@@ -128,7 +128,7 @@
                   <Image url="@Graphics/repeaterCard.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="ChilliCard" fitHeight="53.0" fitWidth="96.0" layoutX="12.0" layoutY="338.0" onDragDetected="#HandleDragSunflowerCard" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ChilliCard" fitHeight="53.0" fitWidth="96.0" layoutX="12.0" layoutY="338.0" onDragDetected="#HandleDragChilli" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Graphics/chillyCard.png" />
                </image>
@@ -143,7 +143,7 @@
                   <Image url="@Graphics/lock.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="lockChilli" fitHeight="37.0" fitWidth="47.0" layoutX="41.0" layoutY="356.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="lockChilli" fitHeight="37.0" fitWidth="47.0" layoutX="41.0" layoutY="356.0" onDragDetected="#HandleDragChilli" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Graphics/lock.png" />
                </image>
@@ -168,7 +168,7 @@
                   <Image url="@Graphics/loading_gif.gif" />
                </image>
             </ImageView>
-            <ImageView fx:id="chilliLoad" fitHeight="42.0" fitWidth="35.0" layoutX="42.0" layoutY="347.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="chilliLoad" fitHeight="42.0" fitWidth="35.0" layoutX="42.0" layoutY="347.0" onDragDetected="#HandleDragChilli" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Graphics/loading_gif.gif" />
                </image>

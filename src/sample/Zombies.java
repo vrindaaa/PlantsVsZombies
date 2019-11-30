@@ -22,6 +22,7 @@ public class Zombies {
         double y;
         int row;
         transient Timer timer;
+        boolean resize = false;
         miscellaneous.LawnMower rowLawnMower;
         String image_path = "out/production/PVZ/sample/Graphics/zombie_normal.gif";
         ArrayList<plants.plant> row_plants;
@@ -112,9 +113,14 @@ public class Zombies {
     }
     static class ConeZombie extends Zombie{
         //TODO
-
         public ConeZombie(double y, int row, ArrayList<plants.plant> row_plants, miscellaneous.LawnMower rowLawnMower, ArrayList<Zombie> rowZombies) throws FileNotFoundException {
             super(y, row, row_plants, rowLawnMower, rowZombies);
+            health = 150;
+            image_path = "out/production/PVZ/sample/Graphics/zombie_cone.gif";
+            this.setImage(new Image(new FileInputStream(image_path)));
+            this.setFitWidth(110);
+            resize = true;
+            this.setFitHeight(135);
         }
     }
     static class FlagZombie extends Zombie{
@@ -129,6 +135,12 @@ public class Zombies {
 
         public BucketZombie(double y, int row, ArrayList<plants.plant> row_plants, miscellaneous.LawnMower rowLawnMower, ArrayList<Zombie> rowZombies) throws FileNotFoundException {
             super(y, row, row_plants, rowLawnMower, rowZombies);
+            health = 200;
+            image_path = "out/production/PVZ/sample/Graphics/zombie_bucket.gif";
+            this.setImage(new Image(new FileInputStream(image_path)));
+            this.setFitWidth(110);
+            resize = true;
+            this.setFitHeight(135);
         }
     }
     static class StickZombie extends Zombie{
@@ -143,6 +155,9 @@ public class Zombies {
 
         public RugbyZombie(double y, int row, ArrayList<plants.plant> row_plants, miscellaneous.LawnMower rowLawnMower, ArrayList<Zombie> rowZombies) throws FileNotFoundException {
             super(y, row, row_plants, rowLawnMower, rowZombies);
+            health = 250;
+            image_path = "out/production/PVZ/sample/Graphics/zombie_football.gif";
+            this.setImage(new Image(new FileInputStream(image_path)));
         }
     }
 

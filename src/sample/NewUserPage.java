@@ -67,7 +67,7 @@ public class NewUserPage {
     @FXML
     public void onNewUser() throws IOException {
         String name = UsernameInputField.getText();
-        GameClasses.User u = new GameClasses.User(name,1);
+        GameClasses.User u = new GameClasses.User(name,10);
         GameClasses.allUsers a = null;
         System.out.println("Hi " + name);
         try{

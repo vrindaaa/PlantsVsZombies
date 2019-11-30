@@ -53,6 +53,7 @@ public class SaveGamePage {
         try{
             GameClasses.Game g = variables.currentUser.savedGames.get(0);
             variables.curGame = g;
+            variables.currentLevel = Level.getLevel(g.cur_level);
             Main.GameStage.setScene(load(getClass().getResource("GamePage.fxml")));
         }catch (Exception e){
             System.out.println("No Saved game here");
@@ -64,6 +65,7 @@ public class SaveGamePage {
         try{
             GameClasses.Game g = variables.currentUser.savedGames.get(1);
             variables.curGame = g;
+            variables.currentLevel = Level.getLevel(g.cur_level);
             Main.GameStage.setScene(load(getClass().getResource("GamePage.fxml")));
         }catch (Exception e){
             System.out.println("No Saved game here");
@@ -75,6 +77,7 @@ public class SaveGamePage {
         try{
             GameClasses.Game g = variables.currentUser.savedGames.get(2);
             variables.curGame = g;
+            variables.currentLevel = Level.getLevel(g.cur_level);
             Main.GameStage.setScene(load(getClass().getResource("GamePage.fxml")));
         }catch (Exception e){
             System.out.println("No Saved game here");

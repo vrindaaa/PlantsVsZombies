@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class GameClasses {
     public static void Serialize(Game a) throws IOException, UserAlreadyExistsException {
+        a.setId();
         variables.currentUser.addGame(a);
         allUsers al = null;
         try {
@@ -58,7 +59,11 @@ public class GameClasses {
             LocalDateTime now = LocalDateTime.now();
             id = dtf.format(now);
         }
-
+        public void setId(){
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+            LocalDateTime now = LocalDateTime.now();
+            id = dtf.format(now);
+        }
         public ArrayList<ArrayList<Zombies.Zombie>> getListOflistOfZombies() {
             return listOflistOfZombies;
         }

@@ -99,8 +99,7 @@ public class plants {
         public String image_path;
         public boolean isAlive = true;
         public transient static int loadTime;
-        public transient static boolean isAvailable = true;
-        public boolean get_eaten(AnchorPane GamePagePane, double AttackZombie){
+        public boolean get_eaten(Pane GamePagePane, double AttackZombie){
             health-=AttackZombie;
             if(health<=0){
                 return true;
@@ -108,27 +107,15 @@ public class plants {
             return false;
         }
 
-        public void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies) throws FileNotFoundException, InterruptedException {
-        }
+        public abstract void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies, ArrayList<ArrayList<plant>> row_plants) throws FileNotFoundException, InterruptedException;
 
         public ImageView getCurrentImageView() {
             return currentImageView;
         }
-
-        public void setHealth(double health) {
-            this.health = health;
-        }
-
-        public double getAttackPower() {
-            return attackPower;
-        }
-
-        public double getHealth() {
-            return health;
-        }
     }
 
     static class SunFlower extends plant {
+        public transient static boolean isAvailable = true;
 
         SunFlower(ImageView plant_place, int row,Pane GamepagePane, Label SunTokenLabel, int col) {
             currentImageView = plant_place;
@@ -144,7 +131,7 @@ public class plants {
             isAvailable = true;
         }
         @Override
-        public void work(Pane GamepagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies){
+        public void work(Pane GamepagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies, ArrayList<ArrayList<plant>> row_plants){
             giveSun(GamepagePane, SunTokenLabel);
         }
 
@@ -176,6 +163,7 @@ public class plants {
     }
 
     static class PeaShooter extends plant{
+        public transient static boolean isAvailable = true;
         PeaShooter(ImageView plant_place, int row, AnchorPane GamePagePane, ArrayList<ArrayList<Zombies.Zombie>> list_zombies, int col) throws FileNotFoundException {
             health = 2500;
             attackPower = 100;
@@ -189,7 +177,7 @@ public class plants {
             loadTime = 7;
             isAvailable = true;
        }
-       public void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> list_zombies) throws FileNotFoundException, InterruptedException {
+       public void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> list_zombies, ArrayList<ArrayList<plant>> row_plants) throws FileNotFoundException, InterruptedException {
             shoot(GamePagePane, list_zombies);
        }
        public void shoot(Pane GamePagePane, ArrayList<ArrayList<Zombies.Zombie>> list_zombies) throws FileNotFoundException {
@@ -229,6 +217,7 @@ public class plants {
     }
 
     static class Repeater extends PeaShooter{
+        public transient static boolean isAvailable = true;
         public Repeater(ImageView plant_place, int row, AnchorPane GamePagePane, ArrayList<ArrayList<Zombies.Zombie>> list_zombies, int col) throws FileNotFoundException, InterruptedException {
             super(plant_place, row, GamePagePane, list_zombies, col);
             isAvailable = true;
@@ -245,34 +234,98 @@ public class plants {
         }
     }
 
-//    static class ChillyBomb extends plant{
-//        ChillyBomb(){
-//        }
-//        public void explode(){
-//            //TODO
-//        }
-//    }
-//
+    static class ChillyBomb extends plant{
+        public transient static boolean isAvailable = true;
+        ChillyBomb(ImageView plant_place, int row, Pane GamepagePane, int col, ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies, ArrayList<ArrayList<plant>> lawn_plants) {
+            currentImageView = plant_place;
+            this.row = row;
+            this.col = col;
+            health = 1000;
+            attackPower = 0;
+            image_path = "out/production/PVZ/sample/Graphics/chilly.png";
+            this.setMyX(plant_place.getLocalToSceneTransform().getTx());
+            this.setMyY(plant_place.getLocalToSceneTransform().getTy());
+            loadTime = 5;
+            isAvailable = true;
+            explode(GamepagePane, lawn_plants, lawn_zombies);
+        }
+
+        @Override
+        public void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies, ArrayList<ArrayList<plant>> row_plants){
+            explode(GamePagePane, row_plants, lawn_zombies);
+        }
+        public void explode(Pane GamePagePane, ArrayList<ArrayList<plant>> row_plants, ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies){
+            Timer change1 = new Timer();
+            Timer change2 = new Timer();
+            Timer change3 = new Timer();
+            ChillyBomb temp = this;
+            change1.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                currentImageView.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/explosion.jpeg")));
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            },1000);
+            change2.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(() -> {
+                        try {
+                            currentImageView.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/fire.png")));
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
+            },1200);
+            change3.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(() -> {
+                        currentImageView.setImage(null);
+                        get_eaten(GamePagePane, 1000);
+                        isAlive = false;
+                        row_plants.remove(temp);
+                        int k = lawn_zombies.get(row).size();
+                        for(int i=k-1; i>=0; i--){
+                            lawn_zombies.get(row).get(i).get_hit(100000, lawn_zombies, row, i);
+                        }
+                    });
+                }
+            },1400);
+        }
+    }
+
     static class Walnut extends plant{
+        public transient static boolean isAvailable = true;
         Walnut(ImageView i, int row, Pane GamePagePane, int col){
             this.currentImageView = i;
             health = 15000;
             this.row = row;
             this.col = col;
             attackPower = 0;
-            image_path = "out/production/PVZ/sample/Graphics/wallnut_gif.gif";
+            image_path = "out/production/PVZ/sample/Graphics/walnut_gif.gif";
             this.setMyX(currentImageView.getLocalToSceneTransform().getTx());
             this.setMyY(currentImageView.getLocalToSceneTransform().getTy());
             loadTime = 10;
             isAvailable = true;
         }
-        void work(){}
+        @Override
+        public void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies, ArrayList<ArrayList<plant>> row_plants){}
     }
 
     static class Pea extends ImageView{
         Pea pea = this;
         double x;
-        static double damage = 20;
+        static double damage = 40;
         Pea(double x) throws FileNotFoundException {
             this.x = x;
             this.setImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/pea.png")));
@@ -286,7 +339,7 @@ public class plants {
                         @Override
                         public void run() {
                             if(!variables.isGamePaused){
-                                pea.setX(pea.getX()+5);
+                                pea.setX(pea.getX()+8);
                                 for(int i=0; i<list_zombies.get(row).size(); i++){
                                     if(pea.getX()<list_zombies.get(row).get(i).getX()+5 && pea.getX()>list_zombies.get(row).get(i).getX()-5){
                                         //Hit Zombie

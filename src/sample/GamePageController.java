@@ -171,6 +171,10 @@ public class GamePageController {
                 temp.setY(temp.myY);
                 try{
                 GamepagePane.getChildren().add(temp);
+                if(temp.resize){
+                    temp.setFitWidth(110);
+                    temp.setFitHeight(135);
+                }
                     Timer timer = new Timer();
                     temp.timer = timer;
                     timerTaskZombies.add(timer);
@@ -211,7 +215,7 @@ public class GamePageController {
                 temp.setY(temp.myY);
                 getLawn().get(temp.row*9 +temp.col).setImage(new Image(new FileInputStream(temp.image_path)));
                 temp.currentImageView = getLawn().get(temp.row*9 +temp.col);
-                temp.work(GamepagePane, SunTokenLabel, lawn_zombies);
+                temp.work(GamepagePane, SunTokenLabel, lawn_zombies, lawn_plants);
             }
         }
     }
@@ -219,8 +223,46 @@ public class GamePageController {
         int pos = rand.nextInt(5);
         curGame.noOfzombiesGenerated+=1;
         double val_y = row_coordinates[pos];
-        Zombie z = new Zombie(val_y, pos, lawn_plants.get(pos), lawn_mowers.get(pos), lawn_zombies.get(pos));
-        lawn_zombies.get(pos).add(z);
+        int which_zombie = rand.nextInt(currentLevel.levelNo);
+        System.out.println(which_zombie);
+        Zombie z = null;
+        if(which_zombie == 1) {
+            z = new ConeZombie(val_y, pos, lawn_plants.get(pos), lawn_mowers.get(pos), lawn_zombies.get(pos));
+        }
+        else if(which_zombie == 2) {
+            z = new BucketZombie(val_y, pos, lawn_plants.get(pos), lawn_mowers.get(pos), lawn_zombies.get(pos));
+        }
+        else if(which_zombie == 3) {
+            z = new RugbyZombie(val_y, pos, lawn_plants.get(pos), lawn_mowers.get(pos), lawn_zombies.get(pos));
+            Timer timer = new Timer();
+            timerTaskZombies.add(timer);
+            z.timer = timer;
+            Zombie finalZ = z;
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if(!isGamePaused){
+                        Platform.runLater(() -> {
+                            try {
+                                finalZ.move(GamepagePane);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if(finalZ.getHealth()<=0 || finalZ.myX<100){
+                                GamepagePane.getChildren().remove(finalZ);
+                                timer.cancel();
+                                timer.purge();
+                            }
+                        });
+                    }
+                }
+            },0,40);
+        }
+        else{
+            z = new Zombie(val_y, pos, lawn_plants.get(pos), lawn_mowers.get(pos), lawn_zombies.get(pos));
+        }
+        Zombie z2 = z;
+        lawn_zombies.get(pos).add(z2);
         GamepagePane.getChildren().add(z);
         Timer timer = new Timer();
         timerTaskZombies.add(timer);
@@ -231,13 +273,12 @@ public class GamePageController {
                 if(!isGamePaused){
                     Platform.runLater(() -> {
                         try {
-                            z.move(GamepagePane);
+                            z2.move(GamepagePane);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        if(z.getHealth()<=0 || z.myX<100){
-                            System.out.println("Zombie removed" + z.myX+" "+z.getHealth());
-                            GamepagePane.getChildren().remove(z);
+                        if(z2.getHealth()<=0 || z2.myX<100){
+                            GamepagePane.getChildren().remove(z2);
                             timer.cancel();
                             timer.purge();
                         }
@@ -255,9 +296,6 @@ public class GamePageController {
         if(!t.isAlive()){
             t.start();
         }
-//        if(!t2.isAlive()){
-//            t2.start();
-//        }
     }
     ArrayList<ImageView> getLawn(){
         ArrayList<ImageView> tiles = new ArrayList<ImageView>();
@@ -290,7 +328,7 @@ public class GamePageController {
     @FXML
     private void HandleDragPeaShooterCard(MouseEvent event) throws FileNotFoundException {
         if(!PeaShooter.isAvailable){
-            System.out.println("pea shooter not available");
+            System.out.println("Pea shooter not available");
             return;
         }
         if(!isGamePaused){
@@ -320,6 +358,17 @@ public class GamePageController {
             ClipboardContent cb = new ClipboardContent();
             cb.putString("repeater_image.png");
             cb.putImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/repeatercard_compressed.jpg")));
+            db.setContent(cb);
+            event.consume();
+        }
+    }
+    @FXML
+    private void HandleDragChilli(MouseEvent event) throws FileNotFoundException {
+        if(card_chilly.isUnlocked && !isGamePaused && ChillyBomb.isAvailable){
+            Dragboard db = ChilliCard.startDragAndDrop(TransferMode.ANY);
+            ClipboardContent cb = new ClipboardContent();
+            cb.putString("chilly.png");
+            cb.putImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/chillycard_compressed.jpg")));
             db.setContent(cb);
             event.consume();
         }
@@ -364,7 +413,7 @@ public class GamePageController {
                         PeaShooter cur_plant = new PeaShooter(lawn.get(i), row, GamepagePane,lawn_zombies, i%9);
                         lawn_plants.get(row).add(cur_plant);
                         lawn.get(i).setImage(myPlant);
-                        cur_plant.isAvailable = false;
+                        PeaShooter.isAvailable = false;
                         peashooterLoad.setOpacity(1);
                         Timer timer = new Timer();
                         long temp = PeaShooter.loadTime;
@@ -416,7 +465,7 @@ public class GamePageController {
                         timer.schedule(new TimerTask() {
                             @Override
                             public void run() {
-                                SunFlower.isAvailable = true;
+                                Walnut.isAvailable = true;
                                 walnutLoad.setOpacity(0);
                                 //System.out.println("here2");
                             }
@@ -431,7 +480,7 @@ public class GamePageController {
                         Repeater cur_plant = new Repeater(lawn.get(i), row, GamepagePane,lawn_zombies, i%9);
                         lawn_plants.get(row).add(cur_plant);
                         lawn.get(i).setImage(myPlant);
-                        cur_plant.isAvailable = false;
+                        Repeater.isAvailable = false;
                         repeaterLoad.setOpacity(1);
                         Timer timer = new Timer();
                         long temp = Repeater.loadTime;
@@ -443,13 +492,33 @@ public class GamePageController {
                             }
                         }, temp * 1000);
                     }
+                    if(db.getString().equals("chilly.png")){
+                        if(Integer.parseInt(SunTokenLabel.getText())>=75){
+                            SunTokenLabel.setText(String.valueOf(Integer.parseInt(SunTokenLabel.getText())-75));
+                        }else{
+                            return;
+                        }
+                        ChillyBomb cur_plant = new ChillyBomb(lawn.get(i), row, GamepagePane, i%9, lawn_zombies, lawn_plants);
+                        lawn_plants.get(row).add(cur_plant);
+                        lawn.get(i).setImage(myPlant);
+                        ChillyBomb.isAvailable = false;
+                        chilliLoad.setOpacity(1);
+                        Timer timer = new Timer();
+                        long temp = Repeater.loadTime;
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                ChillyBomb.isAvailable = true;
+                                chilliLoad.setOpacity(0);
+                            }
+                        }, temp * 1000);
+                    }
                     return;
                 }
             }
         }
         event.consume();
     }
-
     void setCards(){
         if(!card_wallnut.isUnlocked){
             lockWallnut.setOpacity(1);
