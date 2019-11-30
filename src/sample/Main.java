@@ -2,11 +2,7 @@ package sample;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-
-import java.io.File;
 
 import static javafx.fxml.FXMLLoader.load;
 
@@ -27,7 +23,10 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        Thread t1 = new Thread(new SocketProgram.runSocketServer());
+        Thread t2 = new Thread(new SocketProgram.runSocketClient());
+        t1.start();
+        t2.start();
         launch(args);
-       // trying.doit();
     }
 }
