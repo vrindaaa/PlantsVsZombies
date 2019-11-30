@@ -41,7 +41,7 @@ public class GamePageController {
     @FXML
     ImageView LawnMower_a, LawnMower_b, LawnMower_c, LawnMower_d, LawnMower_e;
     @FXML
-    ImageView SunCard, PeaShooterCard, WallnutCard, lockWallnut;
+    ImageView SunCard, PeaShooterCard, WallnutCard, lockWallnut, RepeaterCard, ChilliCard, lockRepeater, lockChilli;
     @FXML
     ImageView sunflowerLoad,peashooterLoad,walnutLoad,repeaterLoad,chilliLoad;
     @FXML
@@ -50,6 +50,8 @@ public class GamePageController {
     ArrayList<ArrayList<plant>> lawn_plants = new ArrayList<>();
     ArrayList<miscellaneous.LawnMower> lawn_mowers = new ArrayList<>();
     wallNutCard card_wallnut = null;
+    doublePeaShooterCard card_repeater = null;
+    chillyCard card_chilly = null;
     @FXML
     Label SunTokenLabel;
     double[] row_coordinates = {0, 60, 130, 205, 280};
@@ -88,7 +90,7 @@ public class GamePageController {
             curGame.noOfzombiesKilled = 0;
         }
     }
-    void start_game() throws FileNotFoundException {
+    void start_game() throws FileNotFoundException, InterruptedException {
         Timer progressTask = new Timer();
         progressTask.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -118,6 +120,8 @@ public class GamePageController {
         }
         //isGamePaused = false;
         card_wallnut = new wallNutCard(currentLevel.WallNutUnlocked, WallnutCard, true);
+        card_repeater = new doublePeaShooterCard(currentLevel.repeaterUnlocked, RepeaterCard, true);
+        card_chilly = new chillyCard(currentLevel.cherryBombUnlocked, ChilliCard, true);
         setCards();
         lawn_zombies = curGame.listOflistOfZombies;
         lawn_plants = curGame.listOflistOfPlants;
@@ -199,7 +203,7 @@ public class GamePageController {
             }
         }
     }
-    void add_plants() throws FileNotFoundException {
+    void add_plants() throws FileNotFoundException, InterruptedException {
         for(int i=0; i<5; i++){
             for(int j=0; j<lawn_plants.get(i).size(); j++){
                 plant temp = lawn_plants.get(i).get(j);
@@ -244,7 +248,7 @@ public class GamePageController {
     }
     //Main Game Start
     @FXML
-    private void start_sun() throws FileNotFoundException {
+    private void start_sun() throws FileNotFoundException, InterruptedException {
         if(toStart){
             start_game();
         }
@@ -310,6 +314,17 @@ public class GamePageController {
         }
     }
     @FXML
+    private void HandleDragRepeater(MouseEvent event) throws FileNotFoundException {
+        if(card_repeater.isUnlocked && !isGamePaused && Repeater.isAvailable){
+            Dragboard db = RepeaterCard.startDragAndDrop(TransferMode.ANY);
+            ClipboardContent cb = new ClipboardContent();
+            cb.putString("repeater_image.png");
+            cb.putImage(new Image(new FileInputStream("out/production/PVZ/sample/Graphics/repeatercard_compressed.jpg")));
+            db.setContent(cb);
+            event.consume();
+        }
+    }
+    @FXML
     private void onDragOver(DragEvent event){
         if(event.getDragboard().hasImage()){
             event.acceptTransferModes(TransferMode.ANY);
@@ -326,7 +341,7 @@ public class GamePageController {
         //Main.GameStage.setScene(load(getClass().getResource("PauseMenu.fxml")));
     }
     @FXML
-    private void imageviewdragdropped(DragEvent event) throws FileNotFoundException {
+    private void imageviewdragdropped(DragEvent event) throws FileNotFoundException, InterruptedException {
         Dragboard db = event.getDragboard();
         Object current = event.getSource();
         ArrayList<ImageView> lawn = getLawn();
@@ -407,6 +422,27 @@ public class GamePageController {
                             }
                         }, temp * 1000);
                     }
+                    if(db.getString().equals("repeater_image.png")){
+                        if(Integer.parseInt(SunTokenLabel.getText())>=200){
+                            SunTokenLabel.setText(String.valueOf(Integer.parseInt(SunTokenLabel.getText())-200));
+                        }else{
+                            return;
+                        }
+                        Repeater cur_plant = new Repeater(lawn.get(i), row, GamepagePane,lawn_zombies, i%9);
+                        lawn_plants.get(row).add(cur_plant);
+                        lawn.get(i).setImage(myPlant);
+                        cur_plant.isAvailable = false;
+                        repeaterLoad.setOpacity(1);
+                        Timer timer = new Timer();
+                        long temp = Repeater.loadTime;
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                Repeater.isAvailable = true;
+                                repeaterLoad.setOpacity(0);
+                            }
+                        }, temp * 1000);
+                    }
                     return;
                 }
             }
@@ -417,6 +453,12 @@ public class GamePageController {
     void setCards(){
         if(!card_wallnut.isUnlocked){
             lockWallnut.setOpacity(1);
+        }
+        if(!card_repeater.isUnlocked){
+            lockRepeater.setOpacity(1);
+        }
+        if(!card_chilly.isUnlocked){
+            lockChilli.setOpacity(1);
         }
     }
     class generate_sun implements Runnable{

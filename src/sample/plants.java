@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class plants {
     static abstract class plantCard{
@@ -67,21 +68,25 @@ public class plants {
     }
 
     static class doublePeaShooterCard extends plantCard{
-        doublePeaShooterCard(){
+        doublePeaShooterCard(boolean isUnlocked, ImageView cardImageView, boolean isLoaded){
             name = "doublePeaShooter";
             loadTime= 10;
-          //  cardImageView =  //TODO;
             cost = 200;
+            name = "WallNut";
+            this.isUnlocked = isUnlocked;
+            this.cardImageView = cardImageView;
 
         }
     }
 
     static class chillyCard extends plantCard{
-        chillyCard(){
+        chillyCard(boolean isUnlocked, ImageView cardImageView, boolean isLoaded){
             name = "chillyCard";
             loadTime = 6;
             //cardImageView = new ImageView(new Image(new FileInputStream("TODO")));
             cost = 125;
+            this.isUnlocked = isUnlocked;
+            this.cardImageView = cardImageView;
         }
     }
 
@@ -103,7 +108,7 @@ public class plants {
             return false;
         }
 
-        public void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies) throws FileNotFoundException {
+        public void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> lawn_zombies) throws FileNotFoundException, InterruptedException {
         }
 
         public ImageView getCurrentImageView() {
@@ -159,14 +164,14 @@ public class plants {
                            }
                            if(variables.isGamePaused)
                                return;
-                           miscellaneous.sunToken s = new miscellaneous.sunToken(25, GamepagePane, SunTokenLabel, 3000,x,y);
+                           miscellaneous.sunToken s = new miscellaneous.sunToken(25, GamepagePane, SunTokenLabel, 5000,x,y);
                            GamepagePane.getChildren().add(s.getSun());
                            miscellaneous.Animate animation = new miscellaneous.Animate(x, y, x, y+50, s.getSun(), 1);
                            animation.start();
                        }
                    });
                }
-           },6000,10000);
+           },2000,6000);
         }
     }
 
@@ -184,7 +189,7 @@ public class plants {
             loadTime = 7;
             isAvailable = true;
        }
-       public void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> list_zombies) throws FileNotFoundException {
+       public void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> list_zombies) throws FileNotFoundException, InterruptedException {
             shoot(GamePagePane, list_zombies);
        }
        public void shoot(Pane GamePagePane, ArrayList<ArrayList<Zombies.Zombie>> list_zombies) throws FileNotFoundException {
@@ -223,12 +228,22 @@ public class plants {
         }
     }
 
-//    static class Repeater extends PeaShooter{
-//        @Override
-//        public void shoot(){
-//            //TODO
-//        }
-//    }
+    static class Repeater extends PeaShooter{
+        public Repeater(ImageView plant_place, int row, AnchorPane GamePagePane, ArrayList<ArrayList<Zombies.Zombie>> list_zombies, int col) throws FileNotFoundException, InterruptedException {
+            super(plant_place, row, GamePagePane, list_zombies, col);
+            isAvailable = true;
+            loadTime = 10;
+            health = 5000;
+            image_path = "out/production/PVZ/sample/Graphics/repeater_image.png";
+            TimeUnit.MILLISECONDS.sleep(500);
+            shoot(GamePagePane,list_zombies);
+        }
+        public void work(Pane GamePagePane, Label SunTokenLabel, ArrayList<ArrayList<Zombies.Zombie>> list_zombies) throws FileNotFoundException, InterruptedException {
+            shoot(GamePagePane, list_zombies);
+            TimeUnit.MILLISECONDS.sleep(500);
+            shoot(GamePagePane,list_zombies);
+        }
+    }
 
 //    static class ChillyBomb extends plant{
 //        ChillyBomb(){
@@ -241,7 +256,7 @@ public class plants {
     static class Walnut extends plant{
         Walnut(ImageView i, int row, Pane GamePagePane, int col){
             this.currentImageView = i;
-            health = 12000;
+            health = 15000;
             this.row = row;
             this.col = col;
             attackPower = 0;

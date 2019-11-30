@@ -123,12 +123,12 @@
                   <Image url="@Graphics/tallnutCard.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="SunCard1" fitHeight="55.0" fitWidth="101.0" layoutX="12.0" layoutY="282.0" onDragDetected="#HandleDragSunflowerCard" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="RepeaterCard" fitHeight="55.0" fitWidth="101.0" layoutX="12.0" layoutY="282.0" onDragDetected="#HandleDragRepeater" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Graphics/repeaterCard.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="SunCard11" fitHeight="53.0" fitWidth="96.0" layoutX="12.0" layoutY="338.0" onDragDetected="#HandleDragSunflowerCard" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ChilliCard" fitHeight="53.0" fitWidth="96.0" layoutX="12.0" layoutY="338.0" onDragDetected="#HandleDragSunflowerCard" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Graphics/chillyCard.png" />
                </image>
@@ -138,7 +138,7 @@
                   <Image url="@Graphics/lock.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="lockReoeater" fitHeight="42.0" fitWidth="40.0" layoutX="39.0" layoutY="293.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="lockRepeater" fitHeight="42.0" fitWidth="40.0" layoutX="39.0" layoutY="293.0" onDragDetected="#HandleDragRepeater" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Graphics/lock.png" />
                </image>
@@ -163,7 +163,7 @@
                   <Image url="@Graphics/loading_gif.gif" />
                </image>
             </ImageView>
-            <ImageView fx:id="repeaterLoad" fitHeight="42.0" fitWidth="35.0" layoutX="42.0" layoutY="296.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="repeaterLoad" fitHeight="42.0" fitWidth="35.0" layoutX="42.0" layoutY="296.0" onDragDetected="#HandleDragRepeater" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Graphics/loading_gif.gif" />
                </image>

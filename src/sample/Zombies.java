@@ -110,21 +110,41 @@ public class Zombies {
             }
         }
     }
-//    static class ConeZombie extends Zombie{
-//        //TODO
-//    }
-//    static class FlagZombie extends Zombie{
-//        //TODO
-//    }
-//    static class BucketZombie extends Zombie{
-//        //TODO
-//    }
-//    static class StickZombie extends Zombie{
-//        //TODO
-//    }
-//    static class RugbyZombie extends Zombie{
-//        //TODO
-//    }
+    static class ConeZombie extends Zombie{
+        //TODO
+
+        public ConeZombie(double y, int row, ArrayList<plants.plant> row_plants, miscellaneous.LawnMower rowLawnMower, ArrayList<Zombie> rowZombies) throws FileNotFoundException {
+            super(y, row, row_plants, rowLawnMower, rowZombies);
+        }
+    }
+    static class FlagZombie extends Zombie{
+        //TODO
+
+        public FlagZombie(double y, int row, ArrayList<plants.plant> row_plants, miscellaneous.LawnMower rowLawnMower, ArrayList<Zombie> rowZombies) throws FileNotFoundException {
+            super(y, row, row_plants, rowLawnMower, rowZombies);
+        }
+    }
+    static class BucketZombie extends Zombie{
+        //TODO
+
+        public BucketZombie(double y, int row, ArrayList<plants.plant> row_plants, miscellaneous.LawnMower rowLawnMower, ArrayList<Zombie> rowZombies) throws FileNotFoundException {
+            super(y, row, row_plants, rowLawnMower, rowZombies);
+        }
+    }
+    static class StickZombie extends Zombie{
+        //TODO
+
+        public StickZombie(double y, int row, ArrayList<plants.plant> row_plants, miscellaneous.LawnMower rowLawnMower, ArrayList<Zombie> rowZombies) throws FileNotFoundException {
+            super(y, row, row_plants, rowLawnMower, rowZombies);
+        }
+    }
+    static class RugbyZombie extends Zombie{
+        //TODO
+
+        public RugbyZombie(double y, int row, ArrayList<plants.plant> row_plants, miscellaneous.LawnMower rowLawnMower, ArrayList<Zombie> rowZombies) throws FileNotFoundException {
+            super(y, row, row_plants, rowLawnMower, rowZombies);
+        }
+    }
 
 
 }
